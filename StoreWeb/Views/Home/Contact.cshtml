@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "İletişim";
+}
+
+<h2>İletişim</h2>
+
+<hr />
+
+<!-- Telefon Bilgisi -->
+<div>
+    <h4>Telefon</h4>
+    <p>+90 362 000 00 00</p>
+</div>
+
+<hr />
+
+<!-- Harita -->
+<div>
+    <h4>Konum</h4>
+    <iframe 
+        src="https://www.google.com/maps?q=Samsun&output=embed"
+        width="100%" 
+        height="400" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
+    </iframe>
+</div>
+
+<hr />
+
+<!-- İletişim Formu -->
+<div>
+    <h4>İletişim Formu</h4>
+
+    <form method="post" asp-action="Contact">
+        
+        <div>
+            <label for="name">Ad Soyad</label><br />
+            <input type="text" id="name" name="name" required />
+        </div>
+
+        <br />
+
+        <div>
+            <label for="email">E-posta</label><br />
+            <input type="email" id="email" name="email" required />
+        </div>
+
+        <br />
+
+        <div>
+            <label for="message">Mesaj</label><br />
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <br />
+
+        <button type="submit">Gönder</button>
+
+    </form>
+</div>

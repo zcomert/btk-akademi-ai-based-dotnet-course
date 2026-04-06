@@ -26,9 +26,9 @@ public class HomeController : Controller
         return View(model);
     }
 
-    public String Contact()
+    public IActionResult Contact()
     {
-        return "İletişim";
+        return View();
     }
 
     public String Products(Int16 q)
