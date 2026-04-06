@@ -4,9 +4,9 @@ namespace StoreWeb.Controllers;
 
 public class HomeController : Controller
 {
-    public String Index()
+    public IActionResult Index()
     {
-        return "Hello World";
+        return View();
     }
 
     public String Greeting(String name)
