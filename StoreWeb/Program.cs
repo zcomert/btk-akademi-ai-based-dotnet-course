@@ -13,5 +13,13 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseAuthorization();
+
+// Varsayılan MVC route yapısı
+app.MapControllerRoute(
+    name:"default",
+    pattern:"{controller=Home}/{action=Index}/{id?}");
+
 app.Run();
