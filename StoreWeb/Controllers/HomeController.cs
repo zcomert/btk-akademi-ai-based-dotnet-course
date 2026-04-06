@@ -15,6 +15,12 @@ public class HomeController : Controller
         var model = new GreetingModel
         {
             Name = id,
+            Cities = new List<City> { 
+                new City { Number = 55, Name = "Samsun" },
+                new City { Number = 6, Name = "Ankara" },
+                new City { Number = 34, Name = "İstanbul" },
+                new City { Number = 35, Name = "İzmir" }
+            }
         };
 
         return View(model);
