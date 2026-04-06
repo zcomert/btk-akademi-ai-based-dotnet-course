@@ -14,7 +14,7 @@ public class HomeController : Controller
     {
         var model = new GreetingModel
         {
-            Name = "Zafer"
+            Name = name
         };
 
         return View(model);
