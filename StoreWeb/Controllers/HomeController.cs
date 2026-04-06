@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StoreWeb.Models;
 
 namespace StoreWeb.Controllers;
 
@@ -9,9 +10,14 @@ public class HomeController : Controller
         return View();
     }
 
-    public String Greeting(String name)
+    public IActionResult Greeting(String name)
     {
-        return $"Merhaba {name}";
+        var model = new GreetingModel
+        {
+            Name = "Zafer"
+        };
+
+        return View(model);
     }
 
     public String Contact()
