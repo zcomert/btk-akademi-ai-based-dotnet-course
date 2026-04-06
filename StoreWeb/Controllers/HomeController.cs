@@ -10,11 +10,11 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Greeting(String name)
+    public IActionResult Greeting(String id)
     {
         var model = new GreetingModel
         {
-            Name = name
+            Name = id,
         };
 
         return View(model);
