@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StoreWeb.Models;
 
 namespace StoreWeb.Repositories;
 

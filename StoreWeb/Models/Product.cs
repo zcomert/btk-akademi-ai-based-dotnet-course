@@ -1,4 +1,4 @@
-namespace StoreWeb.Repositories;
+namespace StoreWeb.Models;
 
 public class Product
 {
