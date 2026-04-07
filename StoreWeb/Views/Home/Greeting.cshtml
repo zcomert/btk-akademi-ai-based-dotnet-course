@@ -1,36 +1,16 @@
 @model StoreWeb.Models.GreetingModel
-@using StoreWeb.Models
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTK Akademi</title>
-</head>
 
-<body>
-    <header>
-
-    </header>
-    <main>
-        <h1>Merhaba @Model?.Name</h1>
-        <small>Bu sayfa @Model?.Date tarihinde oluşturulmuştur.</small>
-        <ul>
-            @foreach (var city in Model?.Cities ?? new List<City>())
-            {
-                <li>@city</li>
-            }
-        </ul>
-        <p>
-            <a href="/">Ana Sayfa</a>
-        </p>
-    </main>
-    <footer>
-        &copy; 2026, Nisan
-    </footer>
-</body>
-
-</html>
-
+<h1>Merhaba @Model?.Name</h1>
+<small>Bu sayfa @Model?.Date tarihinde oluşturulmuştur.</small>
+<ul>
+    @foreach (var city in Model?.Cities ?? new List<City>())
+    {
+        <li>@city</li>
+    }
+</ul>
+<p>
+    <a href="/">Ana Sayfa</a>
+</p>
+   
