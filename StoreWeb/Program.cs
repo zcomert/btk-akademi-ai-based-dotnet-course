@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using StoreWeb.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
