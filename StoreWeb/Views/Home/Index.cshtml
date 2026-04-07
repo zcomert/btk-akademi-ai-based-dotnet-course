@@ -1,6 +1,66 @@
-<h1>Hoş Geldiniz</h1>
-<a href="/home/greeting/BTK-Akademi">Selamla</a>
-<a href="/home/contact">İletişim</a>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
 
+<section class="section reveal" data-reveal>
+    <div class="card overflow-hidden">
+        <div class="card-body md:p-10">
+            <div class="grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
+                <div class="space-y-4">
+                    <span class="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">
+                        <iconify-icon icon="heroicons:sparkles-solid" width="16" height="16"></iconify-icon>
+                        Kurumsal Modern Deneyim
+                    </span>
+                    <h1 class="font-heading text-3xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+                        BTK Store'a hos geldiniz
+                    </h1>
+                    <p class="max-w-xl text-lg text-slate-600">
+                        Ogrenme odakli sayfalari daha net, daha erisilebilir ve daha etkili bir arayuz deneyimiyle sunuyoruz.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a class="btn btn-primary" href="/home/greeting/BTK-Akademi">
+                            <iconify-icon icon="heroicons:hand-raised-solid" width="18" height="18"></iconify-icon>
+                            Selamla
+                        </a>
+                        <a class="btn btn-secondary" href="/home/contact">
+                            <iconify-icon icon="heroicons:envelope-solid" width="18" height="18"></iconify-icon>
+                            Iletisime Gec
+                        </a>
+                    </div>
+                </div>
+                <div class="grid gap-3">
+                    <div class="rounded-2xl border border-brand-100 bg-brand-50 p-4">
+                        <p class="text-sm font-semibold text-brand-700">Hizli Erisim</p>
+                        <p class="mt-1 text-sm text-slate-700">Tek tikla selamlama sayfasina ve iletisim formuna ulasin.</p>
+                    </div>
+                    <div class="rounded-2xl border border-cyan-100 bg-cyan-50 p-4">
+                        <p class="text-sm font-semibold text-cyan-700">Erisilebilir Arayuz</p>
+                        <p class="mt-1 text-sm text-slate-700">Net odak durumlari, okunakli tipografi ve responsive bilesenler.</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                        <p class="text-sm font-semibold text-slate-800">Surdurulebilir Mimari</p>
+                        <p class="mt-1 text-sm text-slate-600">Tekrarlanabilir sinif sozlesmeleri ile hizli bakim.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-
+<section class="section grid gap-4 md:grid-cols-3">
+    <article class="card card-body reveal" data-reveal>
+        <h2 class="card-title">Selamlama Akisi</h2>
+        <p class="mt-2 text-slate-600">Model verisini modern kart yapisinda goruntuleyin.</p>
+        <a href="/home/greeting/BTK-Akademi" class="mt-4 inline-flex font-semibold text-brand-700 hover:text-brand-600">Sayfayi ac</a>
+    </article>
+    <article class="card card-body reveal" data-reveal>
+        <h2 class="card-title">Iletisim Kanali</h2>
+        <p class="mt-2 text-slate-600">Form, telefon bilgisi ve konum haritasini tek sayfada toplayin.</p>
+        <a href="/home/contact" class="mt-4 inline-flex font-semibold text-brand-700 hover:text-brand-600">Iletisime git</a>
+    </article>
+    <article class="card card-body reveal" data-reveal>
+        <h2 class="card-title">Olceklenebilir Tema</h2>
+        <p class="mt-2 text-slate-600">Token tabanli renk ve bilesen kurallariyla tutarli UI.</p>
+        <a href="/" class="mt-4 inline-flex font-semibold text-brand-700 hover:text-brand-600">Ana gorunum</a>
+    </article>
+</section>

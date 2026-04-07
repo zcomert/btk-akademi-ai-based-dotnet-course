@@ -1,0 +1,237 @@
+:root {
+    --surface-1: #f8fafc;
+    --surface-2: #ffffff;
+    --ink-1: #0f172a;
+    --ink-2: #334155;
+    --brand-500: #1f75fe;
+    --brand-700: #0e4fc0;
+    --accent-500: #0fa3b1;
+    --success-500: #0f766e;
+    --danger-500: #dc2626;
+    --radius-sm: 0.65rem;
+    --radius-md: 0.9rem;
+    --radius-lg: 1.25rem;
+    --shadow-soft: 0 10px 35px -18px rgba(15, 23, 42, 0.35);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body.page-shell {
+    min-height: 100vh;
+    font-family: "DM Sans", sans-serif;
+    background:
+        radial-gradient(1100px 350px at 10% -10%, rgba(31, 117, 254, 0.1), transparent 55%),
+        radial-gradient(900px 300px at 95% 0%, rgba(15, 163, 177, 0.12), transparent 56%),
+        var(--surface-1);
+    color: var(--ink-1);
+}
+
+.content-container {
+    width: min(1120px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -200%;
+    z-index: 999;
+    border-radius: var(--radius-sm);
+    background: var(--ink-1);
+    color: #fff;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 0.75rem;
+}
+
+.nav-link,
+.mobile-link {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-weight: 600;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: all 180ms ease;
+}
+
+.nav-link:hover,
+.mobile-link:hover {
+    background: #e2e8f0;
+    color: var(--ink-1);
+}
+
+.nav-link.is-active,
+.mobile-link.is-active {
+    background: #dbeafe;
+    color: var(--brand-700);
+}
+
+.mobile-menu {
+    display: none;
+    border-top: 1px solid #e2e8f0;
+    background: #fff;
+}
+
+.mobile-menu.is-open {
+    display: block;
+}
+
+.mobile-link {
+    display: block;
+    margin: 0.2rem 0;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.8rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #fff;
+    color: var(--ink-1);
+}
+
+.section {
+    margin-top: 1.2rem;
+}
+
+.card {
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: var(--radius-lg);
+    background: var(--surface-2);
+    box-shadow: var(--shadow-soft);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-title {
+    margin: 0;
+    font-family: "Outfit", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: -0.015em;
+}
+
+.muted {
+    color: #64748b;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    padding: 0.67rem 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 180ms ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--brand-500);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--brand-700);
+}
+
+.btn-secondary {
+    background: #fff;
+    color: var(--ink-1);
+    border-color: #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+}
+
+.form-label {
+    display: inline-block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+}
+
+.input-control {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--ink-1);
+    padding: 0.72rem 0.85rem;
+    font: inherit;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.input-control:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 3px rgba(31, 117, 254, 0.2);
+    outline: none;
+}
+
+.field.is-invalid .input-control {
+    border-color: var(--danger-500);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.field-message {
+    margin-top: 0.3rem;
+    min-height: 1rem;
+    font-size: 0.86rem;
+    color: var(--danger-500);
+}
+
+.form-status {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--success-500);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 350ms ease, transform 350ms ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .reveal,
+    .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}

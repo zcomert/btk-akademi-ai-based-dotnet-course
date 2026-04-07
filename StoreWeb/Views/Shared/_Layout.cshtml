@@ -1,19 +1,102 @@
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
+    var title = ViewData["Title"]?.ToString();
+    var pageTitle = string.IsNullOrWhiteSpace(title) ? "BTK Akademi Store" : $"{title} | BTK Akademi Store";
+    var isHome = currentController == "Home" && currentAction == "Index";
+    var isGreeting = currentController == "Home" && currentAction == "Greeting";
+    var isContact = currentController == "Home" && currentAction == "Contact";
+}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@pageTitle</title>
+    <meta name="description" content="BTK Akademi Store web uygulamasi" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            brand: {
+                                50: "#eef7ff",
+                                100: "#daeefe",
+                                500: "#1f75fe",
+                                600: "#0d63ec",
+                                700: "#0e4fc0"
+                            },
+                            accent: "#0fa3b1",
+                            ink: "#0f172a",
+                            surface: "#f8fafc"
+                        },
+                        fontFamily: {
+                            heading: ["Outfit", "sans-serif"],
+                            body: ["DM Sans", "sans-serif"]
+                        },
+                        boxShadow: {
+                            soft: "0 10px 35px -18px rgba(15, 23, 42, 0.35)"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        Linkler
+<body class="page-shell text-slate-900 antialiased">
+    <a href="#main-content" class="skip-link">Ana icerige gec</a>
+    <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+        <div class="content-container">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="inline-flex items-center gap-2 font-heading text-lg font-bold tracking-tight text-slate-900">
+                    <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-soft">B</span>
+                    BTK Store
+                </a>
+                <button type="button"
+                        class="icon-btn md:hidden"
+                        data-menu-toggle
+                        aria-expanded="false"
+                        aria-controls="mobile-menu"
+                        aria-label="Navigasyon menusunu ac veya kapat">
+                    <iconify-icon icon="heroicons:bars-3-20-solid" width="24" height="24"></iconify-icon>
+                </button>
+                <nav class="hidden items-center gap-2 md:flex" aria-label="Ana navigasyon">
+                    <a href="/" class="nav-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
+                    <a href="/home/greeting/BTK-Akademi" class="nav-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
+                    <a href="/home/contact" class="nav-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
+                </nav>
+            </div>
+        </div>
+        <nav id="mobile-menu" class="mobile-menu md:hidden" aria-label="Mobil navigasyon">
+            <div class="content-container py-3">
+                <a href="/" class="mobile-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
+                <a href="/home/greeting/BTK-Akademi" class="mobile-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
+                <a href="/home/contact" class="mobile-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
+            </div>
+        </nav>
     </header>
-    <main>
+
+    <main id="main-content" class="py-8 md:py-12">
+        <div class="content-container">
             @RenderBody()
+        </div>
     </main>
-    <footer>
-        &copy; 2026 BTK Akademi
+
+    <footer class="border-t border-slate-200/90 bg-white py-6">
+        <div class="content-container flex flex-col items-start justify-between gap-2 text-sm text-slate-600 md:flex-row md:items-center">
+            <p>&copy; @DateTime.Now.Year BTK Akademi</p>
+            <p>Kurumsal modern arayuz altyapisi</p>
+        </div>
     </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
