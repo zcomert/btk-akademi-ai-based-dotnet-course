@@ -1,0 +1,17 @@
+@model Product
+
+<section class="space-y-4">
+    <h1 class="text-2xl font-semibold">Product Details</h1>
+
+    <div class="card card-body space-y-2">
+        <p><strong>Id:</strong> @Model.ProductId</p>
+        <p><strong>Name:</strong> @Model.ProductName</p>
+        <p><strong>Price:</strong> @Model.Price.ToString("C")</p>
+        <p><strong>Image URL:</strong> @Model.ImageURL</p>
+    </div>
+
+    <div class="flex gap-2">
+        <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-primary">Edit</a>
+        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</section>

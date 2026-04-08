@@ -1,0 +1,34 @@
+@model Product
+
+<section class="space-y-4">
+    <h1 class="text-2xl font-semibold">Create Product</h1>
+
+    <div class="card card-body">
+        <form asp-area="Admin" asp-controller="Product" asp-action="Create" method="post" class="space-y-3">
+            <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+
+            <div>
+                <label asp-for="ProductName" class="block text-sm font-medium"></label>
+                <input asp-for="ProductName" class="w-full rounded border border-slate-300 px-3 py-2" />
+                <span asp-validation-for="ProductName" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="Price" class="block text-sm font-medium"></label>
+                <input asp-for="Price" class="w-full rounded border border-slate-300 px-3 py-2" />
+                <span asp-validation-for="Price" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="ImageURL" class="block text-sm font-medium"></label>
+                <input asp-for="ImageURL" class="w-full rounded border border-slate-300 px-3 py-2" />
+                <span asp-validation-for="ImageURL" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="flex gap-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</section>

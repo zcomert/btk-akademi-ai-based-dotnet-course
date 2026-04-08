@@ -1,0 +1,47 @@
+@model IEnumerable<Product>
+
+<section class="space-y-4">
+    <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-semibold">Admin Product Management</h1>
+        <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">Create New Product</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card card-body">
+            <p class="muted">No products found.</p>
+        </div>
+    }
+    else
+    {
+        <div class="overflow-x-auto card card-body">
+            <table class="min-w-full text-sm">
+                <thead>
+                    <tr class="text-left">
+                        <th class="py-2">Id</th>
+                        <th class="py-2">Name</th>
+                        <th class="py-2">Price</th>
+                        <th class="py-2">Image URL</th>
+                        <th class="py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr class="border-t border-slate-200">
+                            <td class="py-2">@product.ProductId</td>
+                            <td class="py-2">@product.ProductName</td>
+                            <td class="py-2">@product.Price.ToString("C")</td>
+                            <td class="py-2">@product.ImageURL</td>
+                            <td class="py-2">
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-secondary">Details</a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-secondary">Edit</a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-secondary">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
