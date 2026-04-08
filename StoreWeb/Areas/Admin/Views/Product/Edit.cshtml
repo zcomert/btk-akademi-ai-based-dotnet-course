@@ -1,4 +1,8 @@
 @model Product
+@{
+    const string fallbackImagePath = "/images/placeholders/product-fallback.svg";
+    var imagePath = string.IsNullOrWhiteSpace(Model.ImageURL) ? fallbackImagePath : Model.ImageURL;
+}
 
 <section class="space-y-4">
     <h1 class="text-2xl font-semibold">Edit Product</h1>
@@ -7,10 +11,13 @@
         <form asp-area="Admin" 
         asp-controller="Product" 
         asp-action="Edit" 
-        method="post" class="space-y-3">
+        method="post" 
+        enctype="multipart/form-data"
+        class="space-y-3">
             
             
             <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="ImageURL" />
             <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
 
             <div>
@@ -25,10 +32,23 @@
                 <span asp-validation-for="Price" class="text-red-600 text-sm"></span>
             </div>
 
+            <div class="space-y-2">
+                <label class="block text-sm font-medium">Current Image</label>
+                <img src="@imagePath"
+                     alt="@Model.ProductName"
+                     class="h-24 w-24 rounded object-cover border border-slate-200"
+                     onerror="this.onerror=null;this.src='@fallbackImagePath';" />
+            </div>
+
             <div>
-                <label asp-for="ImageURL" class="block text-sm font-medium"></label>
-                <input asp-for="ImageURL" class="w-full rounded border border-slate-300 px-3 py-2" />
-                <span asp-validation-for="ImageURL" class="text-red-600 text-sm"></span>
+                <label for="imageFile" class="block text-sm font-medium">New Image (Optional)</label>
+                <input id="imageFile"
+                       name="imageFile"
+                       type="file"
+                       accept=".jpg,.jpeg,.png,.webp"
+                       class="w-full rounded border border-slate-300 px-3 py-2" />
+                <p class="text-xs text-slate-500 mt-1">Allowed: JPG, PNG, WEBP. Max size: 10 MB.</p>
+                <span class="text-red-600 text-sm">@Html.ValidationMessage("ImageFile")</span>
             </div>
 
             <div class="flex gap-2">
