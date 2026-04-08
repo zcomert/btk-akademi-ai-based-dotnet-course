@@ -3,7 +3,10 @@
 <section class="space-y-4">
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-semibold">Admin Product Management</h1>
-        <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">Create New Product</a>
+        <div class="flex gap-2">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary">Dashboard</a>
+            <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">Create New Product</a>
+        </div>
     </div>
 
     @if (!Model.Any())

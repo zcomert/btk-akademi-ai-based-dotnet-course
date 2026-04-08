@@ -9,6 +9,7 @@
     var isGreeting = currentController == "Home" && currentAction == "Greeting";
     var isContact = currentController == "Home" && currentAction == "Contact";
     var isAdminProduct = currentArea == "Admin" && currentController == "Product";
+    var isAdminDashboard = currentArea == "Admin" && currentController == "Dashboard";
 }
 <!DOCTYPE html>
 <html lang="tr">
@@ -73,6 +74,7 @@
                 <nav class="hidden items-center gap-2 md:flex" aria-label="Ana navigasyon">
                     <a href="/" class="nav-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
                     <a href="/product" class="nav-link @(isProduct ? "is-active" : string.Empty)">Urunler</a>
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @(isAdminDashboard ? "is-active" : string.Empty)">Admin Dashboard</a>
                     <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="nav-link @(isAdminProduct ? "is-active" : string.Empty)">Admin Product</a>
                     <a href="/home/greeting/BTK-Akademi" class="nav-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                     <a href="/home/contact" class="nav-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
@@ -83,6 +85,7 @@
             <div class="content-container py-3">
                 <a href="/" class="mobile-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
                 <a href="/product" class="mobile-link @(isProduct ? "is-active" : string.Empty)">Urunler</a>
+                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="mobile-link @(isAdminDashboard ? "is-active" : string.Empty)">Admin Dashboard</a>
                 <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="mobile-link @(isAdminProduct ? "is-active" : string.Empty)">Admin Product</a>
                 <a href="/home/greeting/BTK-Akademi" class="mobile-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                 <a href="/home/contact" class="mobile-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
