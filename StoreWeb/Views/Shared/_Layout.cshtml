@@ -10,6 +10,11 @@
     var isContact = currentController == "Home" && currentAction == "Contact";
     var isAdminProduct = currentArea == "Admin" && currentController == "Product";
     var isAdminDashboard = currentArea == "Admin" && currentController == "Dashboard";
+    var isEditorial = currentController == "Editorial" && currentAction == "Index";
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    var isAdmin = User.IsInRole(AppRoles.Admin);
+    var isEditorOrAdmin = User.IsInRole(AppRoles.Editor) || isAdmin;
+    var displayName = User.Identity?.Name ?? "Kullanici";
 }
 <!DOCTYPE html>
 <html lang="tr">
@@ -74,10 +79,28 @@
                 <nav class="hidden items-center gap-2 md:flex" aria-label="Ana navigasyon">
                     <a href="/" class="nav-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
                     <a href="/product" class="nav-link @(isProduct ? "is-active" : string.Empty)">Urunler</a>
-                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @(isAdminDashboard ? "is-active" : string.Empty)">Admin Dashboard</a>
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="nav-link @(isAdminProduct ? "is-active" : string.Empty)">Admin Product</a>
+                    @if (isEditorOrAdmin)
+                    {
+                        <a asp-controller="Editorial" asp-action="Index" class="nav-link @(isEditorial ? "is-active" : string.Empty)">Editoryal</a>
+                    }
+                    @if (isAdmin)
+                    {
+                        <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link @(isAdminDashboard || isAdminProduct ? "is-active" : string.Empty)">Admin</a>
+                    }
                     <a href="/home/greeting/BTK-Akademi" class="nav-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                     <a href="/home/contact" class="nav-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
+                    @if (!isAuthenticated)
+                    {
+                        <a asp-controller="Auth" asp-action="Login" class="nav-link @(currentController == "Auth" && currentAction == "Login" ? "is-active" : string.Empty)">Login</a>
+                        <a asp-controller="Auth" asp-action="Register" class="nav-link @(currentController == "Auth" && currentAction == "Register" ? "is-active" : string.Empty)">Register</a>
+                    }
+                    else
+                    {
+                        <span class="nav-link cursor-default text-slate-500">@displayName</span>
+                        <form asp-controller="Auth" asp-action="Logout" method="post">
+                            <button type="submit" class="nav-link">Logout</button>
+                        </form>
+                    }
                 </nav>
             </div>
         </div>
@@ -85,10 +108,28 @@
             <div class="content-container py-3">
                 <a href="/" class="mobile-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
                 <a href="/product" class="mobile-link @(isProduct ? "is-active" : string.Empty)">Urunler</a>
-                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="mobile-link @(isAdminDashboard ? "is-active" : string.Empty)">Admin Dashboard</a>
-                <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="mobile-link @(isAdminProduct ? "is-active" : string.Empty)">Admin Product</a>
+                @if (isEditorOrAdmin)
+                {
+                    <a asp-controller="Editorial" asp-action="Index" class="mobile-link @(isEditorial ? "is-active" : string.Empty)">Editoryal</a>
+                }
+                @if (isAdmin)
+                {
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="mobile-link @(isAdminDashboard || isAdminProduct ? "is-active" : string.Empty)">Admin</a>
+                }
                 <a href="/home/greeting/BTK-Akademi" class="mobile-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                 <a href="/home/contact" class="mobile-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
+                @if (!isAuthenticated)
+                {
+                    <a asp-controller="Auth" asp-action="Login" class="mobile-link @(currentController == "Auth" && currentAction == "Login" ? "is-active" : string.Empty)">Login</a>
+                    <a asp-controller="Auth" asp-action="Register" class="mobile-link @(currentController == "Auth" && currentAction == "Register" ? "is-active" : string.Empty)">Register</a>
+                }
+                else
+                {
+                    <span class="mobile-link text-slate-500">@displayName</span>
+                    <form asp-controller="Auth" asp-action="Logout" method="post">
+                        <button type="submit" class="mobile-link w-full text-left">Logout</button>
+                    </form>
+                }
             </div>
         </nav>
     </header>

@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StoreWeb.Models.Identity;
 using StoreWeb.Repositories;
 
 namespace StoreWeb.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = AppRoles.Admin)]
 public class DashboardController : Controller
 {
     private readonly RepositoryContext _context;
