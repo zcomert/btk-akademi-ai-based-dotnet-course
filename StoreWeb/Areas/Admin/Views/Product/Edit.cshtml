@@ -4,7 +4,12 @@
     <h1 class="text-2xl font-semibold">Edit Product</h1>
 
     <div class="card card-body">
-        <form asp-area="Admin" asp-controller="Product" asp-action="Edit" method="post" class="space-y-3">
+        <form asp-area="Admin" 
+        asp-controller="Product" 
+        asp-action="Edit" 
+        method="post" class="space-y-3">
+            
+            
             <input type="hidden" asp-for="ProductId" />
             <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
 
