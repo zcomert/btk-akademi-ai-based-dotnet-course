@@ -1,0 +1,442 @@
+@{
+    var currentArea = ViewContext.RouteData.Values["area"]?.ToString() ?? string.Empty;
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Dashboard";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
+    var title = ViewData["Title"]?.ToString();
+    var pageTitle = string.IsNullOrWhiteSpace(title) ? "Admin Panel | BTK Akademi Store" : $"{title} | BTK Akademi Store";
+
+    var isAdminArea = string.Equals(currentArea, "Admin", StringComparison.OrdinalIgnoreCase);
+    var isDashboard = isAdminArea && string.Equals(currentController, "Dashboard", StringComparison.OrdinalIgnoreCase);
+    var isProduct = isAdminArea && string.Equals(currentController, "Product", StringComparison.OrdinalIgnoreCase);
+    var isProductIndex = isProduct && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
+    var subtitle = ViewData["Subtitle"]?.ToString()
+        ?? (isDashboard
+            ? "Track inventory and keep your catalog healthy."
+            : isProduct
+                ? "Curate product data with an editorial level control panel."
+                : "Manage your store operations from one unified canvas.");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@pageTitle</title>
+    <meta name="description" content="BTK Akademi Store admin paneli" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: "#000613",
+                            "primary-container": "#001f3f",
+                            secondary: "#2552ca",
+                            "secondary-container": "#446ce4",
+                            "on-secondary-container": "#fffbff",
+                            "on-surface": "#191c1d",
+                            "on-surface-variant": "#43474e",
+                            surface: "#f8f9fa",
+                            "surface-container": "#edeeef",
+                            "surface-container-low": "#f3f4f5",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-container-high": "#e7e8e9",
+                            "tertiary-fixed": "#baeaff"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        :root {
+            --admin-primary: #000613;
+            --admin-primary-container: #001f3f;
+            --admin-secondary: #2552ca;
+            --admin-secondary-container: #446ce4;
+            --admin-surface: #f8f9fa;
+            --admin-surface-container: #edeeef;
+            --admin-surface-low: #f3f4f5;
+            --admin-surface-lowest: #ffffff;
+            --admin-ink: #191c1d;
+            --admin-ink-muted: #5c6270;
+        }
+
+        .admin-shell {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(1100px 520px at 100% -10%, rgba(68, 108, 228, 0.12), transparent 55%),
+                radial-gradient(840px 460px at 0% 0%, rgba(186, 234, 255, 0.22), transparent 46%),
+                var(--admin-surface);
+            color: var(--admin-ink);
+            font-family: "Inter", sans-serif;
+        }
+
+        .admin-shell .font-headline {
+            font-family: "Manrope", sans-serif;
+        }
+
+        .admin-shell .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 450, "GRAD" 0, "opsz" 24;
+            line-height: 1;
+        }
+
+        .admin-sidebar {
+            background: linear-gradient(165deg, #000613 0%, #000d24 56%, #00142f 100%);
+            box-shadow: 10px 0 48px -28px rgba(0, 6, 19, 0.8);
+        }
+
+        .admin-brand {
+            letter-spacing: -0.01em;
+        }
+
+        .admin-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 999px;
+            padding: 0.62rem 0.9rem;
+            color: #9aa9ca;
+            text-decoration: none;
+            transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+        }
+
+        .admin-nav-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(2px);
+        }
+
+        .admin-nav-link.is-active {
+            color: #ffffff;
+            background: var(--admin-secondary-container);
+            box-shadow: 0 10px 22px -14px rgba(68, 108, 228, 0.85);
+        }
+
+        .admin-nav-link.is-disabled {
+            cursor: default;
+            opacity: 0.72;
+        }
+
+        .admin-nav-link.is-disabled:hover {
+            transform: none;
+            color: #9aa9ca;
+            background: transparent;
+        }
+
+        .admin-context-btn {
+            background: rgba(255, 255, 255, 0.09);
+            color: #f2f6ff;
+            border-radius: 0.75rem;
+            padding: 0.62rem 0.75rem;
+            text-decoration: none;
+            transition: background-color 180ms ease;
+        }
+
+        .admin-context-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .admin-topbar {
+            background: rgba(248, 249, 250, 0.84);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .admin-search {
+            background: var(--admin-surface-container);
+            border: none;
+            border-radius: 999px;
+            color: var(--admin-ink);
+            width: min(480px, 100%);
+        }
+
+        .admin-search:focus {
+            box-shadow: 0 0 0 3px rgba(68, 108, 228, 0.16);
+        }
+
+        .admin-top-link {
+            text-decoration: none;
+            color: #73809a;
+            font-size: 0.73rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            transition: color 180ms ease;
+        }
+
+        .admin-top-link:hover,
+        .admin-top-link.is-active {
+            color: var(--admin-primary);
+        }
+
+        .admin-top-link.is-active {
+            position: relative;
+        }
+
+        .admin-top-link.is-active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -0.52rem;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--admin-secondary);
+        }
+
+        .admin-main-shell {
+            border-radius: 1.5rem;
+            background: var(--admin-surface-container);
+            padding: 1rem;
+        }
+
+        .admin-shell .card {
+            border: none;
+            box-shadow: none;
+            background: var(--admin-surface-lowest);
+            border-radius: 1rem;
+        }
+
+        .admin-shell .card-body {
+            padding: 1.12rem;
+        }
+
+        .admin-shell .btn {
+            border: none;
+            border-radius: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .admin-shell .btn-primary {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-primary-container));
+            box-shadow: 0 18px 40px -28px rgba(0, 6, 19, 0.72);
+        }
+
+        .admin-shell .btn-primary:hover {
+            filter: brightness(1.06);
+        }
+
+        .admin-shell .btn-secondary {
+            color: var(--admin-secondary);
+            background: transparent;
+        }
+
+        .admin-shell .btn-secondary:hover {
+            background: var(--admin-surface-low);
+        }
+
+        .admin-shell input:not([type="checkbox"]):not([type="radio"]),
+        .admin-shell select,
+        .admin-shell textarea {
+            border: none !important;
+            border-radius: 0.7rem !important;
+            background: #ffffff !important;
+            box-shadow: inset 0 0 0 1px rgba(67, 71, 78, 0.2);
+        }
+
+        .admin-shell input:not([type="checkbox"]):not([type="radio"]):focus,
+        .admin-shell select:focus,
+        .admin-shell textarea:focus {
+            box-shadow:
+                inset 0 0 0 1px rgba(37, 82, 202, 0.36),
+                0 0 0 3px rgba(68, 108, 228, 0.14) !important;
+        }
+
+        @@media (max-width: 767.98px) {
+            .admin-main-shell {
+                padding: 0.75rem;
+                border-radius: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="admin-shell antialiased">
+    <aside id="admin-sidebar"
+           class="admin-sidebar fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col px-4 py-6 transition-transform duration-200 md:translate-x-0"
+           aria-label="Admin sidebar">
+        <div class="px-3">
+            <a asp-area="Admin"
+               asp-controller="Dashboard"
+               asp-action="Index"
+               class="admin-brand font-headline text-2xl font-extrabold text-white">
+                Editorial
+                <span class="mt-1 block text-sm font-semibold text-slate-400">Intelligence</span>
+            </a>
+        </div>
+
+        <nav class="mt-8 space-y-1 px-2">
+            <a asp-area="Admin"
+               asp-controller="Dashboard"
+               asp-action="Index"
+               class="admin-nav-link @(isDashboard ? "is-active" : string.Empty)">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="text-sm font-semibold">Dashboard</span>
+            </a>
+            <a href="#"
+               class="admin-nav-link is-disabled">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span class="text-sm font-semibold">Orders</span>
+            </a>
+            <a asp-area="Admin"
+               asp-controller="Product"
+               asp-action="Index"
+               class="admin-nav-link @(isProduct ? "is-active" : string.Empty)">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span class="text-sm font-semibold">Products</span>
+            </a>
+            <a href="#"
+               class="admin-nav-link is-disabled">
+                <span class="material-symbols-outlined">group</span>
+                <span class="text-sm font-semibold">Users</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto space-y-3 px-2">
+            <a asp-area="Admin"
+               asp-controller="Product"
+               asp-action="Create"
+               class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary-container px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-110">
+                <span class="material-symbols-outlined text-base">add_circle</span>
+                Create Product
+            </a>
+            <div class="space-y-1">
+                <a href="#" class="admin-nav-link is-disabled">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm font-semibold">Settings</span>
+                </a>
+                <a href="/" class="admin-context-btn inline-flex w-full items-center gap-2 text-sm font-semibold">
+                    <span class="material-symbols-outlined text-base">storefront</span>
+                    Storefront
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div data-admin-overlay class="fixed inset-0 z-40 hidden bg-slate-950/45 md:hidden"></div>
+
+    <div class="min-h-screen md:pl-72">
+        <header class="admin-topbar fixed inset-x-0 top-0 z-30 h-16 px-4 md:left-72 md:px-8">
+            <div class="mx-auto flex h-full max-w-[1600px] items-center justify-between gap-4">
+                <div class="flex min-w-0 flex-1 items-center gap-3">
+                    <button type="button"
+                            data-admin-menu-toggle
+                            aria-label="Open admin menu"
+                            class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface-container text-on-surface md:hidden">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <div class="relative w-full max-w-xl">
+                        <span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                        <input type="text" class="admin-search h-10 pl-10 pr-4 text-sm" placeholder="Search products, ids, fields..." />
+                    </div>
+                </div>
+
+                <nav class="hidden items-center gap-7 md:flex">
+                    <a asp-area="Admin"
+                       asp-controller="Dashboard"
+                       asp-action="Index"
+                       class="admin-top-link @(isDashboard ? "is-active" : string.Empty)">Overview</a>
+                    <a asp-area="Admin"
+                       asp-controller="Product"
+                       asp-action="Index"
+                       class="admin-top-link @(isProduct ? "is-active" : string.Empty)">Catalog</a>
+                </nav>
+
+                <div class="hidden items-center gap-3 md:flex">
+                    <button type="button"
+                            class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface-container text-on-surface-variant transition hover:text-secondary"
+                            aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <div class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary-container text-sm font-semibold text-white">AD</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="px-4 pb-8 pt-20 sm:px-6 md:px-8 md:pt-24">
+            <div class="mx-auto max-w-[1600px] space-y-6">
+                <section class="flex flex-wrap items-end justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-on-surface-variant">Admin Workspace</p>
+                        <h1 class="font-headline text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">@(!string.IsNullOrWhiteSpace(title) ? title : "Admin Panel")</h1>
+                        <p class="mt-1 text-sm font-medium text-on-surface-variant">@subtitle</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        @if (isProductIndex)
+                        {
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">Create Product</a>
+                        }
+                        else
+                        {
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Manage Products</a>
+                        }
+                    </div>
+                </section>
+
+                <section class="admin-main-shell">
+                    @RenderBody()
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+            const sidebar = document.getElementById("admin-sidebar");
+            const overlay = document.querySelector("[data-admin-overlay]");
+            const toggleButtons = document.querySelectorAll("[data-admin-menu-toggle]");
+
+            if (!sidebar || !overlay || !toggleButtons.length) {
+                return;
+            }
+
+            const closeMenu = () => {
+                sidebar.classList.add("-translate-x-full");
+                overlay.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            };
+
+            const openMenu = () => {
+                sidebar.classList.remove("-translate-x-full");
+                overlay.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+            };
+
+            toggleButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const isOpen = !sidebar.classList.contains("-translate-x-full");
+                    if (isOpen) {
+                        closeMenu();
+                        return;
+                    }
+
+                    openMenu();
+                });
+            });
+
+            overlay.addEventListener("click", closeMenu);
+
+            window.addEventListener("resize", () => {
+                if (window.innerWidth >= 768) {
+                    overlay.classList.add("hidden");
+                    sidebar.classList.remove("-translate-x-full");
+                    document.body.classList.remove("overflow-hidden");
+                    return;
+                }
+
+                sidebar.classList.add("-translate-x-full");
+            });
+        })();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
