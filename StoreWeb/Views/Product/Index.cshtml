@@ -1,10 +1,51 @@
 @model IEnumerable<Product>
 
-@foreach (var product in Model)
+@{
+    const string fallbackImagePath = "/images/placeholders/product-fallback.svg";
+}
+
+<section class="product-hero reveal" data-reveal>
+    <p class="product-eyebrow">Store Collection</p>
+    <h1 class="product-hero-title">Urunler</h1>
+    <p class="product-hero-copy">Ihtiyaciniza uygun urunu secin, hizli teslimatla hemen kullanmaya baslayin.</p>
+</section>
+
+@if (!Model.Any())
 {
-    <div>
-        <h2>@product.ProductName</h2>
-        <p>Price: @product.Price.ToString("C")</p>
-    </div>
+    <section class="card card-body reveal" data-reveal>
+        <h2 class="card-title">Urun bulunamadi</h2>
+        <p class="muted">Su an listelenecek urun bulunmuyor.</p>
+    </section>
+}
+else
+{
+    <section class="product-grid" aria-label="Urun listesi">
+        @foreach (var product in Model)
+        {
+            var imagePath = string.IsNullOrWhiteSpace(product.ImageURL)
+                ? fallbackImagePath
+                : Url.Content($"~/{product.ImageURL.TrimStart('/')}");
+
+            <article class="product-card card reveal" data-reveal>
+                <div class="product-card-media" aria-hidden="true">
+                    <img class="product-card-image"
+                         src="@imagePath"
+                         alt="@($"{product.ProductName} urun gorseli")"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='@fallbackImagePath';" />
+                    <span class="product-price-tag">@product.Price.ToString("C")</span>
+                </div>
+                <div class="product-card-content">
+                    <h2 class="card-title">@product.ProductName</h2>
+                    <p class="product-card-meta">Stokta mevcut. Hizli teslimata uygun.</p>
+                    <a href="#"
+                       class="btn btn-primary product-card-action"
+                       aria-label="@($"{product.ProductName} urununu sepete ekle")">
+                        Sepete Ekle
+                    </a>
+                </div>
+            </article>
+        }
+    </section>
 }
 

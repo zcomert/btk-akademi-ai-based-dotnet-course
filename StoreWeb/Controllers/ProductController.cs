@@ -14,6 +14,7 @@ public class ProductController : Controller
 
     public IActionResult Index()
     {
+        ViewData["Title"] = "Urunler";
         var products = _context.Products.ToList();
         return View(products);
     }

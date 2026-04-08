@@ -4,6 +4,7 @@
     var title = ViewData["Title"]?.ToString();
     var pageTitle = string.IsNullOrWhiteSpace(title) ? "BTK Akademi Store" : $"{title} | BTK Akademi Store";
     var isHome = currentController == "Home" && currentAction == "Index";
+    var isProduct = currentController == "Product" && currentAction == "Index";
     var isGreeting = currentController == "Home" && currentAction == "Greeting";
     var isContact = currentController == "Home" && currentAction == "Contact";
 }
@@ -69,6 +70,7 @@
                 </button>
                 <nav class="hidden items-center gap-2 md:flex" aria-label="Ana navigasyon">
                     <a href="/" class="nav-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
+                    <a href="/product" class="nav-link @(isProduct ? "is-active" : string.Empty)">Urunler</a>
                     <a href="/home/greeting/BTK-Akademi" class="nav-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                     <a href="/home/contact" class="nav-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
                 </nav>
@@ -77,6 +79,7 @@
         <nav id="mobile-menu" class="mobile-menu md:hidden" aria-label="Mobil navigasyon">
             <div class="content-container py-3">
                 <a href="/" class="mobile-link @(isHome ? "is-active" : string.Empty)">Ana Sayfa</a>
+                <a href="/product" class="mobile-link @(isProduct ? "is-active" : string.Empty)">Urunler</a>
                 <a href="/home/greeting/BTK-Akademi" class="mobile-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                 <a href="/home/contact" class="mobile-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
             </div>
