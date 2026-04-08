@@ -18,4 +18,17 @@ public class ProductController : Controller
         var products = _context.Products.ToList();
         return View(products);
     }
+
+    public IActionResult Details(int id)
+    {
+        var product = _context
+            .Products
+            .FirstOrDefault(p => p.ProductId == id);
+        
+        if (product is null)
+        {
+            return NotFound();
+        }
+        return View(product);
+    }
 }
