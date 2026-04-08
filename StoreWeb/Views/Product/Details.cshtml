@@ -1,3 +1,42 @@
 @model Product
 
-@Model.ProductName
+@{
+    const string fallbackImagePath = "/images/placeholders/product-fallback.svg";
+    var imagePath = string.IsNullOrWhiteSpace(Model.ImageURL)
+        ? fallbackImagePath
+        : Url.Content($"~/{Model.ImageURL.TrimStart('/')}");
+}
+
+<section class="product-details-shell reveal" data-reveal>
+    <div class="product-details-breadcrumb">
+        <a asp-controller="Product" asp-action="Index" class="muted">Urunler</a>
+        <span aria-hidden="true">/</span>
+        <span>@Model.ProductName</span>
+    </div>
+
+    <article class="product-details card">
+        <div class="product-details-media">
+            <img class="product-details-image"
+                 src="@imagePath"
+                 alt="@($"{Model.ProductName} urun gorseli")"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='@fallbackImagePath';" />
+        </div>
+
+        <div class="product-details-content">
+            <p class="product-details-eyebrow">Product Detail</p>
+            <h1 class="product-details-title">@Model.ProductName</h1>
+            <p class="product-details-copy">Yuksek kalite standartlariyla sunulan bu urun gunluk kullanim icin dengeli performans, dayaniklilik ve konfor sunar.</p>
+
+            <div class="product-details-price-row">
+                <span class="product-details-price">@Model.Price.ToString("C")</span>
+                <span class="product-details-stock">Stokta mevcut</span>
+            </div>
+
+            <div class="product-details-actions">
+                <a href="#" class="btn btn-primary">Sepete Ekle</a>
+                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Listeye Don</a>
+            </div>
+        </div>
+    </article>
+</section>

@@ -29,6 +29,8 @@ public class ProductController : Controller
         {
             return NotFound();
         }
+
+        ViewData["Title"] = product.ProductName;
         return View(product);
     }
 }

@@ -38,10 +38,12 @@ else
                 <div class="product-card-content">
                     <h2 class="card-title">@product.ProductName</h2>
                     <p class="product-card-meta">Stokta mevcut. Hizli teslimata uygun.</p>
-                    <a href="#"
+                    <a asp-controller="Product"
+                       asp-action="Details"
+                       asp-route-id="@product.ProductId"
                        class="btn btn-primary product-card-action"
-                       aria-label="@($"{product.ProductName} urununu sepete ekle")">
-                        Sepete Ekle
+                       aria-label="@($"{product.ProductName} urun detayina git")">
+                        Urunu Incele
                     </a>
                 </div>
             </article>
