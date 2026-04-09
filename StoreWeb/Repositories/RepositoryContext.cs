@@ -8,6 +8,8 @@ namespace StoreWeb.Repositories;
 public class RepositoryContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     public RepositoryContext(DbContextOptions<RepositoryContext> options) 
         : base(options)
