@@ -2,6 +2,7 @@
     const App = {
         init() {
             this.setupMobileMenu();
+            this.setupCarousel();
             this.setupReveal();
             this.setupContactFormValidation();
         },
@@ -17,6 +18,68 @@
                 const isOpen = menu.classList.toggle("is-open");
                 toggle.setAttribute("aria-expanded", String(isOpen));
             });
+        },
+
+        setupCarousel() {
+            const root = document.querySelector("[data-carousel]");
+            if (!root) {
+                return;
+            }
+
+            const slides = Array.from(root.querySelectorAll("[data-carousel-slide]"));
+            const prevButton = root.querySelector("[data-carousel-prev]");
+            const nextButton = root.querySelector("[data-carousel-next]");
+            const currentEl = root.querySelector("[data-carousel-current]");
+
+            if (slides.length <= 1) {
+                return;
+            }
+
+            let currentIndex = slides.findIndex((slide) => slide.classList.contains("is-active"));
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+
+            let autoTimer = 0;
+            const intervalMs = 5600;
+
+            const render = () => {
+                slides.forEach((slide, index) => {
+                    const isActive = index === currentIndex;
+                    slide.classList.toggle("is-active", isActive);
+                    slide.setAttribute("aria-hidden", String(!isActive));
+                });
+
+                if (currentEl) {
+                    currentEl.textContent = String(currentIndex + 1).padStart(2, "0");
+                }
+            };
+
+            const step = (delta) => {
+                currentIndex = (currentIndex + delta + slides.length) % slides.length;
+                render();
+            };
+
+            const restartAuto = () => {
+                window.clearInterval(autoTimer);
+                autoTimer = window.setInterval(() => step(1), intervalMs);
+            };
+
+            prevButton?.addEventListener("click", () => {
+                step(-1);
+                restartAuto();
+            });
+
+            nextButton?.addEventListener("click", () => {
+                step(1);
+                restartAuto();
+            });
+
+            root.addEventListener("mouseenter", () => window.clearInterval(autoTimer));
+            root.addEventListener("mouseleave", restartAuto);
+
+            render();
+            restartAuto();
         },
 
         setupReveal() {
