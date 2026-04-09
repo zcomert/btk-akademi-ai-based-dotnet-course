@@ -59,5 +59,6 @@ public static class ServiceExtensions
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductService, ProductManager>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICartService, CartManager>();
     }
 }
