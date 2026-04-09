@@ -34,7 +34,11 @@
             </div>
 
             <div class="product-details-actions">
-                <a href="#" class="btn btn-primary">Sepete Ekle</a>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                    <button type="submit" class="btn btn-primary">Sepete Ekle</button>
+                </form>
                 <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Listeye Don</a>
             </div>
         </div>
