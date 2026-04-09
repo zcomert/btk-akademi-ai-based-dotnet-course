@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="ConsoleExtensionApp/ConsoleExtensionApp.csproj" />
   <Project Path="StoreWeb/StoreWeb.csproj" />
+  <Project Path="StoreWeb.Tests/StoreWeb.Tests.csproj" />
 </Solution>
