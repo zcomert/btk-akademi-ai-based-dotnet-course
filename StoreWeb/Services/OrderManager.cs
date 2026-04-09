@@ -20,6 +20,9 @@ public class OrderManager : IOrderService
     {
         var cartItems = _cartService.GetCart(session);
 
+        if (!cartItems.Any())
+            throw new InvalidOperationException("Cannot place an order with an empty cart.");
+
         var order = new Order
         {
             UserId = userId,

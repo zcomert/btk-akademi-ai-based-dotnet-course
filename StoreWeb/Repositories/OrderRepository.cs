@@ -24,6 +24,15 @@ public class OrderRepository : IOrderRepository
             .FirstOrDefaultAsync(o => o.OrderId == orderId);
     }
 
+    public async Task<IReadOnlyList<Order>> GetByUserIdAsync(string userId)
+    {
+        return await _context.Orders
+            .Include(o => o.OrderItems)
+            .Where(o => o.UserId == userId)
+            .OrderByDescending(o => o.CreatedAt)
+            .ToListAsync();
+    }
+
     public async Task<int> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync();
