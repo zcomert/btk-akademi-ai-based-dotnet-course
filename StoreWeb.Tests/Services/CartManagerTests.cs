@@ -5,7 +5,7 @@ namespace StoreWeb.Tests.Services;
 
 public class CartManagerTests
 {
-    private readonly CartManager _sut = new();
+    private readonly ICartService _sut = new CartManager();
     private readonly MockSession _session = new();
 
     [Fact]

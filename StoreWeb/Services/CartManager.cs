@@ -6,7 +6,7 @@ namespace StoreWeb.Services;
 
 public class CartManager : ICartService
 {
-    private const string CartKey = "cart";
+    private const string CartKey = "StoreWeb_Cart";
 
     public void AddItem(ISession session, Product product)
     {
@@ -33,17 +33,24 @@ public class CartManager : ICartService
     {
         var cart = GetCart(session);
         var item = cart.FirstOrDefault(x => x.ProductId == productId);
-        if (item is not null)
-            cart.Remove(item);
+        if (item is null) return;
+        cart.Remove(item);
         SaveCart(session, cart);
     }
 
     public List<CartItem> GetCart(ISession session)
     {
         var json = session.GetString(CartKey);
-        return json is null
-            ? new List<CartItem>()
-            : JsonSerializer.Deserialize<List<CartItem>>(json)!;
+        if (json is null)
+            return new List<CartItem>();
+        try
+        {
+            return JsonSerializer.Deserialize<List<CartItem>>(json) ?? new List<CartItem>();
+        }
+        catch (JsonException)
+        {
+            return new List<CartItem>();
+        }
     }
 
     public void ClearCart(ISession session)
