@@ -1,9 +1,4 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using StoreWeb.Infrastructure.Extensions;
-using StoreWeb.Models.Identity;
-using StoreWeb.Repositories;
-using StoreWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,15 +11,7 @@ builder.Services.ConfigureIoC();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<RepositoryContext>();
-    await context.Database.MigrateAsync();
-
-    var authService = services.GetRequiredService<IAuthService>();
-    await authService.SeedDefaultsAsync();
-}
+await app.ConfigureAndSeedDatabaseAsync();
 
 if (!app.Environment.IsDevelopment())
 {
