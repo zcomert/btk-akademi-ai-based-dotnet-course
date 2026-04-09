@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Sepetim";
-    var total = (decimal)(ViewData["Total"] ?? 0m);
+    var total = ViewData["Total"] is decimal d ? d : 0m;
 }
 
 <section class="product-hero reveal" data-reveal>
