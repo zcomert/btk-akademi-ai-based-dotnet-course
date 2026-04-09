@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace StoreWeb.Models;
 
 public class OrderItem
@@ -6,7 +8,10 @@ public class OrderItem
     public int OrderId { get; set; }
     public Order Order { get; set; } = null!;
     public int ProductId { get; set; }
+
+    [Required, MaxLength(200)]
     public string ProductName { get; set; } = string.Empty;
+
     public decimal Price { get; set; }
     public int Quantity { get; set; }
 }
