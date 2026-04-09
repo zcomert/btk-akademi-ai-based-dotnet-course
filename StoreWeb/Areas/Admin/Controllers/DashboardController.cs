@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreWeb.Models.Identity;
-using StoreWeb.Repositories;
+using StoreWeb.Services;
 
 namespace StoreWeb.Areas.Admin.Controllers;
 
@@ -9,18 +9,18 @@ namespace StoreWeb.Areas.Admin.Controllers;
 [Authorize(Roles = AppRoles.Admin)]
 public class DashboardController : Controller
 {
-    private readonly IProductRepository _productRepository;
+    private readonly IProductService _productService;
 
-    public DashboardController(IProductRepository productRepository)
+    public DashboardController(IProductService productService)
     {
-        _productRepository = productRepository;
+        _productService = productService;
     }
 
     public async Task<IActionResult> Index()
     {
-        var productCount = await _productRepository.CountAsync();
-        var totalInventoryValue = await _productRepository.GetTotalInventoryValueAsync();
-        var latestProducts = await _productRepository.GetLatestAsync(5);
+        var productCount = await _productService.CountAsync();
+        var totalInventoryValue = await _productService.GetTotalInventoryValueAsync();
+        var latestProducts = await _productService.GetLatestAsync(5);
 
         ViewData["Title"] = "Admin Dashboard";
         ViewData["ProductCount"] = productCount;

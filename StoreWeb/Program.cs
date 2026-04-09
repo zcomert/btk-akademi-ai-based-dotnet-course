@@ -34,6 +34,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();

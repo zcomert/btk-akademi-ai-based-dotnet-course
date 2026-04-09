@@ -1,27 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
-using StoreWeb.Repositories;
+using StoreWeb.Services;
 
 namespace StoreWeb.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly IProductRepository _productRepository;
+    private readonly IProductService _productService;
 
-    public ProductController(IProductRepository productRepository)
+    public ProductController(IProductService productService)
     {
-        _productRepository = productRepository;
+        _productService = productService;
     }
 
     public async Task<IActionResult> Index()
     {
         ViewData["Title"] = "Urunler";
-        var products = await _productRepository.GetAllAsync(asNoTracking: true);
+        var products = await _productService.GetAllAsync(asNoTracking: true);
         return View(products);
     }
 
     public async Task<IActionResult> Details(int id)
     {
-        var product = await _productRepository.GetByIdAsync(id, asNoTracking: true);
+        var product = await _productService.GetByIdAsync(id, asNoTracking: true);
         
         if (product is null)
         {
