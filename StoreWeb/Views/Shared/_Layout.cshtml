@@ -150,10 +150,17 @@
         </nav>
     </header>
 
-    <main id="main-content" class="main-shell">
-        <div class="content-container">
+    <main id="main-content" class="main-shell @(isHome ? "is-home" : string.Empty)">
+        @if (isHome)
+        {
             @RenderBody()
-        </div>
+        }
+        else
+        {
+            <div class="content-container">
+                @RenderBody()
+            </div>
+        }
     </main>
 
     <footer class="site-footer">

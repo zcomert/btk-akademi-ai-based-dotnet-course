@@ -1,0 +1,78 @@
+@{
+    var slides = new[]
+    {
+        new
+        {
+            Label = "Winter Collection 2024",
+            Title = "Architectural Essentials",
+            Description = "Secili urunleri modern yasam alanlari icin sade ve guclu bir dille bir araya getiriyoruz.",
+            PrimaryCta = "Shop Now",
+            PrimaryUrl = "/product",
+            SecondaryCta = "View Gallery",
+            SecondaryUrl = "/product",
+            Image = Url.Content("~/images/products/sandalye.png")
+        },
+        new
+        {
+            Label = "Studio Picks",
+            Title = "Precision Meets Comfort",
+            Description = "Yalin formlar, net detaylar ve gunluk kullanim konforunu birlestiren ozel seckiler.",
+            PrimaryCta = "Koleksiyona Git",
+            PrimaryUrl = "/product",
+            SecondaryCta = "Detaylari Incele",
+            SecondaryUrl = "/home/contact",
+            Image = Url.Content("~/images/products/tablet.png")
+        },
+        new
+        {
+            Label = "Urban Living",
+            Title = "Contemporary Forms",
+            Description = "Denge, ritim ve islevi on plana alan urunlerle mekanlarini yeniden sekillendir.",
+            PrimaryCta = "Urunleri Ac",
+            PrimaryUrl = "/product",
+            SecondaryCta = "Iletisime Gec",
+            SecondaryUrl = "/home/contact",
+            Image = Url.Content("~/images/products/fotograf-makinesi.png")
+        }
+    };
+}
+
+<section class="carousel-view" data-carousel>
+    <div class="carousel-track" data-carousel-track>
+        @for (var i = 0; i < slides.Length; i++)
+        {
+            var slide = slides[i];
+            <article class="carousel-slide @(i == 0 ? "is-active" : string.Empty)"
+                     data-carousel-slide
+                     aria-hidden="@(i == 0 ? "false" : "true")">
+                <img class="carousel-image" src="@slide.Image" alt="@slide.Title" loading="lazy" />
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                    <p class="carousel-label">@slide.Label</p>
+                    <h1 class="carousel-title">@slide.Title</h1>
+                    <p class="carousel-copy">@slide.Description</p>
+                    <div class="carousel-actions">
+                        <a href="@slide.PrimaryUrl" class="carousel-btn carousel-btn-primary">@slide.PrimaryCta</a>
+                        <a href="@slide.SecondaryUrl" class="carousel-btn carousel-btn-secondary">@slide.SecondaryCta</a>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+
+    <div class="carousel-controls">
+        <div class="carousel-progress" aria-hidden="true">
+            <span class="carousel-current" data-carousel-current>01</span>
+            <span class="carousel-line"></span>
+            <span class="carousel-total">@slides.Length.ToString("D2")</span>
+        </div>
+        <div class="carousel-nav">
+            <button type="button" class="carousel-nav-btn" data-carousel-prev aria-label="Onceki slayt">
+                <span aria-hidden="true">&lsaquo;</span>
+            </button>
+            <button type="button" class="carousel-nav-btn" data-carousel-next aria-label="Sonraki slayt">
+                <span aria-hidden="true">&rsaquo;</span>
+            </button>
+        </div>
+    </div>
+</section>

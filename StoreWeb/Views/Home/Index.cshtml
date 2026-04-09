@@ -1,49 +1,47 @@
-﻿@{
+@{
     ViewData["Title"] = "Ana Sayfa";
 }
 
-<section class="page-hero reveal" data-reveal>
-    <p class="page-label">BTK Store</p>
-    <h1 class="page-title">Kurumsal Urun Deneyimi</h1>
-    <p class="page-copy">Secili urunleri mimari odakli bir sunumla kesfedin, detaylari inceleyin ve hizlica siparis edin.</p>
-</section>
+@await Html.PartialAsync("CarouselView")
 
-<section class="stack">
-    <article class="card card-body reveal" data-reveal>
-        <div style="display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));">
-            <div>
-                <h2 class="card-title">Yeni Storefront Dili</h2>
-                <p class="muted" style="margin-top:.45rem;">Editorial tipografi, yumusak yuzey katmanlari ve net cagrilarla sade bir akis sunuyoruz.</p>
-                <div style="display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1rem;">
-                    <a class="btn btn-primary" href="/product">Koleksiyonu Incele</a>
-                    <a class="btn btn-secondary" href="/home/contact">Iletisime Gec</a>
+<div class="content-container home-content">
+    <section class="stack">
+        <article class="card card-body reveal" data-reveal>
+            <div style="display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));">
+                <div>
+                    <h2 class="card-title">Yeni Storefront Dili</h2>
+                    <p class="muted" style="margin-top:.45rem;">Editorial tipografi, yumusak yuzey katmanlari ve net cagrilarla sade bir akis sunuyoruz.</p>
+                    <div style="display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1rem;">
+                        <a class="btn btn-primary" href="/product">Koleksiyonu Incele</a>
+                        <a class="btn btn-secondary" href="/home/contact">Iletisime Gec</a>
+                    </div>
+                </div>
+                <div class="stack" style="gap:.65rem;">
+                    <div class="notice">UI sistemi storefront geneline uygulandi, admin alani degismedi.</div>
+                    <div class="card" style="padding:.8rem; border-color:rgba(19,27,46,.14);">
+                        <p style="margin:0; font-weight:700;">Hizli Erisim</p>
+                        <p class="muted" style="margin:.25rem 0 0;">Urunler, sepet ve siparis adimlari tutarli bir deneyim sunar.</p>
+                    </div>
                 </div>
             </div>
-            <div class="stack" style="gap:.65rem;">
-                <div class="notice">UI sistemi storefront geneline uygulandi, admin alani degismedi.</div>
-                <div class="card" style="padding:.8rem; border-color:rgba(19,27,46,.14);">
-                    <p style="margin:0; font-weight:700;">Hizli Erisim</p>
-                    <p class="muted" style="margin:.25rem 0 0;">Urunler, sepet ve siparis adimlari tutarli bir deneyim sunar.</p>
-                </div>
-            </div>
-        </div>
-    </article>
+        </article>
 
-    <section style="display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));">
-        <article class="card card-body reveal" data-reveal>
-            <h3 class="card-title">Selamlama Akisi</h3>
-            <p class="muted" style="margin-top:.5rem;">Dinamik model verisini sade bir kart duzeni ile izleyin.</p>
-            <a href="/home/greeting/BTK-Akademi" style="margin-top:.8rem; display:inline-flex; color:#131b2e; font-weight:700;">Sayfayi Ac</a>
-        </article>
-        <article class="card card-body reveal" data-reveal>
-            <h3 class="card-title">Iletisim Merkezi</h3>
-            <p class="muted" style="margin-top:.5rem;">Form ve iletisim detaylarini tek bir akista toplayin.</p>
-            <a href="/home/contact" style="margin-top:.8rem; display:inline-flex; color:#131b2e; font-weight:700;">Iletisime Git</a>
-        </article>
-        <article class="card card-body reveal" data-reveal>
-            <h3 class="card-title">Editorial Alan</h3>
-            <p class="muted" style="margin-top:.5rem;">Yetkili kullanicilar icin ayrilmis icerik alani.</p>
-            <a href="/editorial" style="margin-top:.8rem; display:inline-flex; color:#131b2e; font-weight:700;">Alani Ac</a>
-        </article>
+        <section style="display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));">
+            <article class="card card-body reveal" data-reveal>
+                <h3 class="card-title">Selamlama Akisi</h3>
+                <p class="muted" style="margin-top:.5rem;">Dinamik model verisini sade bir kart duzeni ile izleyin.</p>
+                <a href="/home/greeting/BTK-Akademi" style="margin-top:.8rem; display:inline-flex; color:#131b2e; font-weight:700;">Sayfayi Ac</a>
+            </article>
+            <article class="card card-body reveal" data-reveal>
+                <h3 class="card-title">Iletisim Merkezi</h3>
+                <p class="muted" style="margin-top:.5rem;">Form ve iletisim detaylarini tek bir akista toplayin.</p>
+                <a href="/home/contact" style="margin-top:.8rem; display:inline-flex; color:#131b2e; font-weight:700;">Iletisime Git</a>
+            </article>
+            <article class="card card-body reveal" data-reveal>
+                <h3 class="card-title">Editorial Alan</h3>
+                <p class="muted" style="margin-top:.5rem;">Yetkili kullanicilar icin ayrilmis icerik alani.</p>
+                <a href="/editorial" style="margin-top:.8rem; display:inline-flex; color:#131b2e; font-weight:700;">Alani Ac</a>
+            </article>
+        </section>
     </section>
-</section>
+</div>
