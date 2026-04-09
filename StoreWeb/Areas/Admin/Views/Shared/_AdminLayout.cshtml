@@ -8,12 +8,16 @@
     var isAdminArea = string.Equals(currentArea, "Admin", StringComparison.OrdinalIgnoreCase);
     var isDashboard = isAdminArea && string.Equals(currentController, "Dashboard", StringComparison.OrdinalIgnoreCase);
     var isProduct = isAdminArea && string.Equals(currentController, "Product", StringComparison.OrdinalIgnoreCase);
+    var isUserManagement = isAdminArea && string.Equals(currentController, "UserManagement", StringComparison.OrdinalIgnoreCase);
     var isProductIndex = isProduct && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
+    var isUserIndex = isUserManagement && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
     var subtitle = ViewData["Subtitle"]?.ToString()
         ?? (isDashboard
             ? "Track inventory and keep your catalog healthy."
             : isProduct
                 ? "Curate product data with an editorial level control panel."
+                : isUserManagement
+                    ? "Manage users, roles, and account access from one place."
                 : "Manage your store operations from one unified canvas.");
 }
 <!DOCTYPE html>
@@ -294,8 +298,10 @@
                 <span class="material-symbols-outlined">inventory_2</span>
                 <span class="text-sm font-semibold">Products</span>
             </a>
-            <a href="#"
-               class="admin-nav-link is-disabled">
+            <a asp-area="Admin"
+               asp-controller="UserManagement"
+               asp-action="Index"
+               class="admin-nav-link @(isUserManagement ? "is-active" : string.Empty)">
                 <span class="material-symbols-outlined">group</span>
                 <span class="text-sm font-semibold">Users</span>
             </a>
@@ -349,6 +355,10 @@
                        asp-controller="Product"
                        asp-action="Index"
                        class="admin-top-link @(isProduct ? "is-active" : string.Empty)">Catalog</a>
+                    <a asp-area="Admin"
+                       asp-controller="UserManagement"
+                       asp-action="Index"
+                       class="admin-top-link @(isUserManagement ? "is-active" : string.Empty)">Users</a>
                 </nav>
 
                 <div class="hidden items-center gap-3 md:flex">
@@ -374,6 +384,14 @@
                         @if (isProductIndex)
                         {
                             <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">Create Product</a>
+                        }
+                        else if (isUserIndex)
+                        {
+                            <a asp-area="Admin" asp-controller="UserManagement" asp-action="Create" class="btn btn-primary">Create User</a>
+                        }
+                        else if (isUserManagement)
+                        {
+                            <a asp-area="Admin" asp-controller="UserManagement" asp-action="Index" class="btn btn-primary">Manage Users</a>
                         }
                         else
                         {

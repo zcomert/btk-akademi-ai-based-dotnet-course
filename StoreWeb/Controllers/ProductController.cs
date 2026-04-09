@@ -5,25 +5,23 @@ namespace StoreWeb.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly RepositoryContext _context;
+    private readonly IProductRepository _productRepository;
 
-    public ProductController(RepositoryContext context)
+    public ProductController(IProductRepository productRepository)
     {
-        _context = context;
+        _productRepository = productRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         ViewData["Title"] = "Urunler";
-        var products = _context.Products.ToList();
+        var products = await _productRepository.GetAllAsync(asNoTracking: true);
         return View(products);
     }
 
-    public IActionResult Details(int id)
+    public async Task<IActionResult> Details(int id)
     {
-        var product = _context
-            .Products
-            .FirstOrDefault(p => p.ProductId == id);
+        var product = await _productRepository.GetByIdAsync(id, asNoTracking: true);
         
         if (product is null)
         {

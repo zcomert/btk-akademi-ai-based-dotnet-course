@@ -12,7 +12,7 @@ namespace StoreWeb.Areas.Admin.Controllers;
 [Authorize(Roles = AppRoles.Admin)]
 public class ProductController : Controller
 {
-    private readonly RepositoryContext _context;
+    private readonly IProductRepository _productRepository;
     private readonly IWebHostEnvironment _environment;
     private const long MaxImageSizeBytes = 10 * 1024 * 1024;
     private static readonly HashSet<string> AllowedExtensions = new(StringComparer.OrdinalIgnoreCase)
@@ -30,19 +30,16 @@ public class ProductController : Controller
         "image/webp"
     };
 
-    public ProductController(RepositoryContext context, IWebHostEnvironment environment)
+    public ProductController(IProductRepository productRepository, IWebHostEnvironment environment)
     {
-        _context = context;
+        _productRepository = productRepository;
         _environment = environment;
     }
 
     public async Task<IActionResult> Index()
     {
         ViewData["Title"] = "Admin Product";
-        var products = await _context.Products
-            .AsNoTracking()
-            .OrderBy(p => p.ProductId)
-            .ToListAsync();
+        var products = await _productRepository.GetAllAsync(asNoTracking: true);
 
         return View(products);
     }
@@ -54,9 +51,7 @@ public class ProductController : Controller
             return NotFound();
         }
 
-        var product = await _context.Products
-            .AsNoTracking()
-            .FirstOrDefaultAsync(p => p.ProductId == id);
+        var product = await _productRepository.GetByIdAsync(id.Value, asNoTracking: true);
 
         if (product is null)
         {
@@ -87,8 +82,8 @@ public class ProductController : Controller
         }
 
         product.ImageURL = await SaveProductImageAsync(imageFile);
-        _context.Products.Add(product);
-        await _context.SaveChangesAsync();
+        await _productRepository.AddAsync(product);
+        await _productRepository.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
     }
@@ -100,7 +95,7 @@ public class ProductController : Controller
             return NotFound();
         }
 
-        var product = await _context.Products.FindAsync(id);
+        var product = await _productRepository.GetByIdAsync(id.Value, asNoTracking: true);
         if (product is null)
         {
             return NotFound();
@@ -130,7 +125,7 @@ public class ProductController : Controller
 
         try
         {
-            var existingProduct = await _context.Products.FindAsync(id);
+            var existingProduct = await _productRepository.GetByIdAsync(id, asNoTracking: false);
             if (existingProduct is null)
             {
                 return NotFound();
@@ -146,11 +141,11 @@ public class ProductController : Controller
                 DeleteProductImage(oldImagePath);
             }
 
-            await _context.SaveChangesAsync();
+            await _productRepository.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!ProductExists(product.ProductId))
+            if (!await ProductExistsAsync(product.ProductId))
             {
                 return NotFound();
             }
@@ -168,9 +163,7 @@ public class ProductController : Controller
             return NotFound();
         }
 
-        var product = await _context.Products
-            .AsNoTracking()
-            .FirstOrDefaultAsync(p => p.ProductId == id);
+        var product = await _productRepository.GetByIdAsync(id.Value, asNoTracking: true);
 
         if (product is null)
         {
@@ -185,20 +178,20 @@ public class ProductController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var product = await _context.Products.FindAsync(id);
+        var product = await _productRepository.GetByIdAsync(id, asNoTracking: false);
         if (product is not null)
         {
             DeleteProductImage(product.ImageURL);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            _productRepository.Remove(product);
+            await _productRepository.SaveChangesAsync();
         }
 
         return RedirectToAction(nameof(Index));
     }
 
-    private bool ProductExists(int id)
+    private async Task<bool> ProductExistsAsync(int id)
     {
-        return _context.Products.Any(e => e.ProductId == id);
+        return await _productRepository.ExistsAsync(id);
     }
 
     private void ValidateProduct(Product product)

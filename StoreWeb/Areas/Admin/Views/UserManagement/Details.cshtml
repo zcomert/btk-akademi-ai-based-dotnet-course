@@ -1,0 +1,43 @@
+@model StoreWeb.ViewModels.Admin.UserManagementDetailsViewModel
+
+<section class="space-y-4">
+    <h1 class="text-2xl font-semibold">User Details</h1>
+
+    <div class="card card-body space-y-3">
+        <dl class="grid gap-3 md:grid-cols-2">
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Full Name</dt>
+                <dd class="text-base font-medium">@Model.FullName</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Email</dt>
+                <dd class="text-base font-medium">@Model.Email</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Email Confirmed</dt>
+                <dd class="text-base font-medium">@(Model.EmailConfirmed ? "Yes" : "No")</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Status</dt>
+                <dd class="text-base font-medium">@(Model.IsLockedOut ? "Locked" : "Active")</dd>
+            </div>
+            <div class="md:col-span-2">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Roles</dt>
+                <dd class="text-base font-medium">@string.Join(", ", Model.Roles)</dd>
+            </div>
+            @if (Model.LockoutEnd.HasValue)
+            {
+                <div class="md:col-span-2">
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Lockout End</dt>
+                    <dd class="text-base font-medium">@Model.LockoutEnd.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</dd>
+                </div>
+            }
+        </dl>
+    </div>
+
+    <div class="flex gap-2">
+        <a asp-area="Admin" asp-controller="UserManagement" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-area="Admin" asp-controller="UserManagement" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-secondary">Delete</a>
+        <a asp-area="Admin" asp-controller="UserManagement" asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</section>

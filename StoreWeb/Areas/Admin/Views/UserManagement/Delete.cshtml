@@ -1,0 +1,43 @@
+@model StoreWeb.ViewModels.Admin.UserManagementDeleteViewModel
+
+<section class="space-y-4">
+    <h1 class="text-2xl font-semibold">Delete User</h1>
+
+    <div class="card card-body space-y-3">
+        <p class="text-slate-700">
+            You are about to delete this user account. This action cannot be undone.
+        </p>
+
+        <dl class="grid gap-3 md:grid-cols-2">
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Full Name</dt>
+                <dd class="text-base font-medium">@Model.FullName</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Email</dt>
+                <dd class="text-base font-medium">@Model.Email</dd>
+            </div>
+            <div class="md:col-span-2">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Roles</dt>
+                <dd class="text-base font-medium">@string.Join(", ", Model.Roles)</dd>
+            </div>
+        </dl>
+
+        <div asp-validation-summary="ModelOnly" class="text-sm text-red-600"></div>
+
+        <div class="flex gap-2">
+            @if (Model.IsCurrentUser)
+            {
+                <button type="button" class="btn btn-secondary" disabled>Cannot Delete Current User</button>
+            }
+            else
+            {
+                <form asp-area="Admin" asp-controller="UserManagement" asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary">Confirm Delete</button>
+                </form>
+            }
+            <a asp-area="Admin" asp-controller="UserManagement" asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</section>
