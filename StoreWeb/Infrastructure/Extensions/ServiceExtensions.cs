@@ -61,5 +61,6 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ICartService, CartManager>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderService, OrderManager>();
     }
 }
