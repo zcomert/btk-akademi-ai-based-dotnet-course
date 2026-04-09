@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
     const App = {
         init() {
             this.setupMobileMenu();
@@ -94,7 +94,7 @@
                 if (input.type === "email") {
                     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
                     if (!ok) {
-                        setFieldError(input, "Geçerli bir e-posta giriniz.");
+                        setFieldError(input, "Gecerli bir e-posta giriniz.");
                         return false;
                     }
                 }
@@ -129,13 +129,13 @@
 
                 if (!valid) {
                     event.preventDefault();
-                    status.textContent = "Formu göndermeden önce işaretli alanları düzeltin.";
-                    status.style.color = "#dc2626";
+                    status.textContent = "Formu gondermeden once isaretli alanlari duzeltin.";
+                    status.style.color = "#b91c1c";
                     return;
                 }
 
-                status.textContent = "Form gönderiliyor...";
-                status.style.color = "#0f766e";
+                status.textContent = "Form gonderiliyor...";
+                status.style.color = "#009668";
             });
         }
     };

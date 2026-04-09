@@ -1,4 +1,4 @@
-@model Product
+﻿@model Product
 
 @{
     const string fallbackImagePath = "/images/placeholders/product-fallback.svg";
@@ -9,7 +9,7 @@
 
 <section class="product-details-shell reveal" data-reveal>
     <div class="product-details-breadcrumb">
-        <a asp-controller="Product" asp-action="Index" class="muted">Urunler</a>
+        <a asp-controller="Product" asp-action="Index">Urunler</a>
         <span aria-hidden="true">/</span>
         <span>@Model.ProductName</span>
     </div>
@@ -24,9 +24,9 @@
         </div>
 
         <div class="product-details-content">
-            <p class="product-details-eyebrow">Product Detail</p>
+            <p class="product-details-eyebrow">Urun Detayi</p>
             <h1 class="product-details-title">@Model.ProductName</h1>
-            <p class="product-details-copy">Yuksek kalite standartlariyla sunulan bu urun gunluk kullanim icin dengeli performans, dayaniklilik ve konfor sunar.</p>
+            <p class="product-details-copy">Yuksek kalite standartlariyla sunulan bu urun, gunluk kullanimda konfor ve dayanikliligi bir arada sunar.</p>
 
             <div class="product-details-price-row">
                 <span class="product-details-price">@Model.Price.ToString("C")</span>

@@ -1,53 +1,108 @@
-@model IEnumerable<Product>
+﻿@model IEnumerable<Product>
 
 @{
     const string fallbackImagePath = "/images/placeholders/product-fallback.svg";
 }
 
-<section class="product-hero reveal" data-reveal>
-    <p class="product-eyebrow">Store Collection</p>
-    <h1 class="product-hero-title">Urunler</h1>
-    <p class="product-hero-copy">Ihtiyaciniza uygun urunu secin, hizli teslimatla hemen kullanmaya baslayin.</p>
+<section class="product-shell reveal" data-reveal>
+    <header class="product-hero">
+        <p class="page-label">Koleksiyon</p>
+        <div class="product-hero-head">
+            <div>
+                <h1 class="page-title">Oturma Urunleri</h1>
+                <p class="page-copy">Mimari cizgiye sahip secili urunleri inceleyin. Bu asamada filtre paneli UI odaklidir ve veri sorgusu yapmaz.</p>
+            </div>
+            <div class="product-sort">
+                <label for="sort">Siralama</label>
+                <select id="sort" aria-label="Urunleri sirala">
+                    <option>En yeni eklenen</option>
+                    <option>Fiyat: Dusukten yuksege</option>
+                    <option>Fiyat: Yuksekten dusuge</option>
+                    <option>Populer urunler</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    @if (!Model.Any())
+    {
+        <section class="card card-body">
+            <h2 class="card-title">Urun bulunamadi</h2>
+            <p class="muted">Su an listelenecek urun bulunmuyor.</p>
+        </section>
+    }
+    else
+    {
+        <section class="product-layout" aria-label="Urun listesi ve filtreler">
+            <aside class="filter-panel" aria-label="Filtre paneli">
+                <h2 class="filter-title">Filtreler</h2>
+
+                <div class="filter-group">
+                    <p>Kategori</p>
+                    <label class="filter-option"><span>Salon koltuklari</span><input type="checkbox" checked /></label>
+                    <label class="filter-option"><span>Yemek sandalyeleri</span><input type="checkbox" /></label>
+                    <label class="filter-option"><span>Bank ve tabureler</span><input type="checkbox" /></label>
+                </div>
+
+                <div class="filter-group">
+                    <p>Fiyat Araligi</p>
+                    <input type="range" min="0" max="100" value="20" style="width:100%; accent-color:#131b2e;" />
+                    <small class="muted">500 TL - 15.000 TL+</small>
+                </div>
+
+                <div class="filter-group">
+                    <p>Malzeme</p>
+                    <div class="filter-bullets">
+                        <button type="button" style="background:#161616;" aria-label="Siyah"></button>
+                        <button type="button" style="background:#cbc6bb;" aria-label="Kum"></button>
+                        <button type="button" style="background:#7b4a2d;" aria-label="Ceviz"></button>
+                        <button type="button" style="background:#0b6c57;" aria-label="Yesil"></button>
+                        <button type="button" style="background:#7a7a7a;" aria-label="Gri"></button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-secondary" style="width:100%;">Filtreleri Temizle</button>
+            </aside>
+
+            <div>
+                <div class="product-grid">
+                    @foreach (var product in Model)
+                    {
+                        var imagePath = string.IsNullOrWhiteSpace(product.ImageURL)
+                            ? fallbackImagePath
+                            : Url.Content($"~/{product.ImageURL.TrimStart('/')}");
+
+                        <article class="product-card card reveal" data-reveal>
+                            <div class="product-card-media" aria-hidden="true">
+                                <img class="product-card-image"
+                                     src="@imagePath"
+                                     alt="@($"{product.ProductName} urun gorseli")"
+                                     loading="lazy"
+                                     onerror="this.onerror=null;this.src='@fallbackImagePath';" />
+                                <span class="product-card-pill is-new">Yeni</span>
+                                <span class="product-price-tag">@product.Price.ToString("C")</span>
+                            </div>
+                            <div class="product-card-content">
+                                <h2 class="card-title">@product.ProductName</h2>
+                                <p class="product-meta">Stokta mevcut. Hizli teslimata uygun.</p>
+                                <a asp-controller="Product"
+                                   asp-action="Details"
+                                   asp-route-id="@product.ProductId"
+                                   class="btn btn-primary product-card-action"
+                                   aria-label="@($"{product.ProductName} urun detayina git")">
+                                    Urunu Incele
+                                </a>
+                            </div>
+                        </article>
+                    }
+                </div>
+
+                <div class="product-tail reveal" data-reveal>
+                    <p>@Model.Count() urun listelendi. Daha fazla urun yakinda eklenecek.</p>
+                    <div class="progress-line" aria-hidden="true"><span></span></div>
+                    <button type="button" class="btn btn-primary">Daha Fazla Goster</button>
+                </div>
+            </div>
+        </section>
+    }
 </section>
-
-@if (!Model.Any())
-{
-    <section class="card card-body reveal" data-reveal>
-        <h2 class="card-title">Urun bulunamadi</h2>
-        <p class="muted">Su an listelenecek urun bulunmuyor.</p>
-    </section>
-}
-else
-{
-    <section class="product-grid" aria-label="Urun listesi">
-        @foreach (var product in Model)
-        {
-            var imagePath = string.IsNullOrWhiteSpace(product.ImageURL)
-                ? fallbackImagePath
-                : Url.Content($"~/{product.ImageURL.TrimStart('/')}");
-
-            <article class="product-card card reveal" data-reveal>
-                <div class="product-card-media" aria-hidden="true">
-                    <img class="product-card-image"
-                         src="@imagePath"
-                         alt="@($"{product.ProductName} urun gorseli")"
-                         loading="lazy"
-                         onerror="this.onerror=null;this.src='@fallbackImagePath';" />
-                    <span class="product-price-tag">@product.Price.ToString("C")</span>
-                </div>
-                <div class="product-card-content">
-                    <h2 class="card-title">@product.ProductName</h2>
-                    <p class="product-card-meta">Stokta mevcut. Hizli teslimata uygun.</p>
-                    <a asp-controller="Product"
-                       asp-action="Details"
-                       asp-route-id="@product.ProductId"
-                       class="btn btn-primary product-card-action"
-                       aria-label="@($"{product.ProductName} urun detayina git")">
-                        Urunu Incele
-                    </a>
-                </div>
-            </article>
-        }
-    </section>
-}
-

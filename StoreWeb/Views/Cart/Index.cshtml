@@ -1,49 +1,50 @@
-@model List<CartItem>
+﻿@model List<CartItem>
 
 @{
     ViewData["Title"] = "Sepetim";
     var total = ViewData["Total"] is decimal d ? d : 0m;
 }
 
-<section class="product-hero reveal" data-reveal>
-    <p class="product-eyebrow">Alışveriş</p>
-    <h1 class="product-hero-title">Sepetim</h1>
+<section class="page-hero reveal" data-reveal>
+    <p class="page-label">Alisveris</p>
+    <h1 class="page-title">Sepetim</h1>
+    <p class="page-copy">Eklediginiz urunleri kontrol edin ve siparis adimina gecin.</p>
 </section>
 
 @if (!Model.Any())
 {
     <section class="card card-body reveal" data-reveal>
-        <h2 class="card-title">Sepetiniz boş</h2>
-        <p class="muted">Ürünlere göz atarak sepetinize ekleyebilirsiniz.</p>
+        <h2 class="card-title">Sepetiniz bos</h2>
+        <p class="muted">Urunlere goz atarak sepetinize ekleyebilirsiniz.</p>
         <a asp-controller="Product" asp-action="Index" class="btn btn-primary" style="margin-top:1rem;">
-            Ürünlere Göz At
+            Urunlere Goz At
         </a>
     </section>
 }
 else
 {
-    <section class="reveal" data-reveal>
+    <section class="stack reveal" data-reveal>
         @foreach (var item in Model)
         {
-            <article class="card card-body" style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-                <div style="flex:1; min-width:160px;">
-                    <h2 class="card-title" style="margin-bottom:.25rem;">@item.ProductName</h2>
-                    <p class="muted">@item.Price.ToString("C") × @item.Quantity</p>
+            <article class="card card-body" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                <div style="flex:1; min-width:170px;">
+                    <h2 class="card-title" style="margin-bottom:.2rem;">@item.ProductName</h2>
+                    <p class="muted">@item.Price.ToString("C") x @item.Quantity</p>
                 </div>
                 <strong>@item.Total.ToString("C")</strong>
                 <form asp-controller="Cart" asp-action="RemoveItem" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="productId" value="@item.ProductId" />
-                    <button type="submit" class="btn btn-secondary">Kaldır</button>
+                    <button type="submit" class="btn btn-secondary">Kaldir</button>
                 </form>
             </article>
         }
 
-        <div class="card card-body" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div class="card card-body" style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
             <strong style="font-size:1.1rem;">Toplam: @total.ToString("C")</strong>
-            <div style="display:flex; gap:.75rem;">
-                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Alışverişe Devam</a>
-                <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary">Siparişi Tamamla</a>
+            <div style="display:flex; gap:.7rem; flex-wrap:wrap;">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Alisverise Devam</a>
+                <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary">Siparisi Tamamla</a>
             </div>
         </div>
     </section>

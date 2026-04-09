@@ -1,50 +1,47 @@
-@model LoginViewModel
+﻿@model LoginViewModel
 @{
     var returnUrl = ViewData["ReturnUrl"]?.ToString();
 }
 
-<section class="mx-auto max-w-xl space-y-6">
-    <header class="space-y-2">
-        <h1 class="font-heading text-3xl font-bold text-slate-900">Giris Yap</h1>
-        <p class="text-slate-600">Hesabiniza giris yaparak yonetim ve ozel sayfalara erisebilirsiniz.</p>
+<section class="auth-shell stack reveal" data-reveal>
+    <header class="page-hero" style="padding-bottom:.5rem;">
+        <p class="page-label">Hesap</p>
+        <h1 class="page-title">Giris Yap</h1>
+        <p class="page-copy">Hesabiniza giris yaparak yonetim ve ozel sayfalara erisebilirsiniz.</p>
     </header>
 
     @if (TempData["AuthMessage"] is string authMessage && !string.IsNullOrWhiteSpace(authMessage))
     {
-        <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-700">@authMessage</div>
+        <div class="notice">@authMessage</div>
     }
 
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
-        <form asp-action="Login" asp-controller="Auth" asp-route-returnUrl="@returnUrl" method="post" class="space-y-4">
-            <div asp-validation-summary="ModelOnly" class="text-sm text-red-600"></div>
+    <div class="auth-card">
+        <form asp-action="Login" asp-controller="Auth" asp-route-returnUrl="@returnUrl" method="post" class="stack">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="space-y-1">
-                <label asp-for="Email" class="block text-sm font-medium text-slate-700"></label>
-                <input asp-for="Email" class="w-full rounded-lg border border-slate-300 px-3 py-2" />
-                <span asp-validation-for="Email" class="text-sm text-red-600"></span>
+            <div class="field">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="input-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="space-y-1">
-                <label asp-for="Password" class="block text-sm font-medium text-slate-700"></label>
-                <input asp-for="Password" class="w-full rounded-lg border border-slate-300 px-3 py-2" />
-                <span asp-validation-for="Password" class="text-sm text-red-600"></span>
+            <div class="field">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="input-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <div class="flex items-center gap-2">
-                <input asp-for="RememberMe" class="h-4 w-4 rounded border-slate-300 text-brand-600" />
-                <label asp-for="RememberMe" class="text-sm text-slate-700"></label>
-            </div>
+            <label style="display:inline-flex; align-items:center; gap:.45rem; font-size:.9rem; color:#45464d;">
+                <input asp-for="RememberMe" class="h-4 w-4" />
+                <span>Beni hatirla</span>
+            </label>
 
-            <button type="submit" class="inline-flex w-full items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">
-                Giris Yap
-            </button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Giris Yap</button>
         </form>
 
-        <p class="mt-4 text-sm text-slate-600">
+        <p class="muted" style="margin:.9rem 0 0;">
             Hesabin yok mu?
-            <a asp-controller="Auth" asp-action="Register" asp-route-returnUrl="@returnUrl" class="font-semibold text-brand-600 hover:text-brand-700">
-                Kayit Ol
-            </a>
+            <a asp-controller="Auth" asp-action="Register" asp-route-returnUrl="@returnUrl" style="color:#131b2e; font-weight:700; text-decoration:none;">Kayit Ol</a>
         </p>
     </div>
 </section>
@@ -52,3 +49,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
