@@ -1,0 +1,40 @@
+@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Siparişi Tamamla";
+}
+
+<section class="product-hero reveal" data-reveal>
+    <p class="product-eyebrow">Son Adım</p>
+    <h1 class="product-hero-title">Teslimat Bilgileri</h1>
+</section>
+
+<section class="card card-body reveal" data-reveal style="max-width:560px;">
+    <form asp-controller="Order" asp-action="PlaceOrder" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="muted" style="margin-bottom:1rem;color:#dc2626;"></div>
+
+        <div style="margin-bottom:1.25rem;">
+            <label asp-for="FullName" style="display:block;font-weight:600;margin-bottom:.4rem;"></label>
+            <input asp-for="FullName" class="mock-input" style="width:100%;" placeholder="Örn: Ahmet Yılmaz" />
+            <span asp-validation-for="FullName" style="color:#dc2626;font-size:.875rem;"></span>
+        </div>
+
+        <div style="margin-bottom:1.75rem;">
+            <label asp-for="Address" style="display:block;font-weight:600;margin-bottom:.4rem;"></label>
+            <textarea asp-for="Address" class="mock-input" rows="3"
+                      style="width:100%;resize:vertical;"
+                      placeholder="Mahalle, sokak, bina no, daire..."></textarea>
+            <span asp-validation-for="Address" style="color:#dc2626;font-size:.875rem;"></span>
+        </div>
+
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary">Siparişi Onayla</button>
+            <a asp-controller="Cart" asp-action="Index" class="btn btn-secondary">Sepete Dön</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

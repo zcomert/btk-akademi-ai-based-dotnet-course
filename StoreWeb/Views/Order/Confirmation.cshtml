@@ -1,0 +1,41 @@
+@model Order
+
+@{
+    ViewData["Title"] = "Sipariş Onayı";
+    var total = Model.OrderItems.Sum(item => item.Price * item.Quantity);
+}
+
+<section class="product-hero reveal" data-reveal>
+    <p class="product-eyebrow">Teşekkürler!</p>
+    <h1 class="product-hero-title">Siparişiniz Alındı</h1>
+    <p class="product-hero-copy">Siparişiniz başarıyla oluşturuldu. En kısa sürede kargoya verilecektir.</p>
+</section>
+
+<section class="card card-body reveal" data-reveal>
+    <div style="margin-bottom:1rem;">
+        <p><strong>Sipariş No:</strong> #@Model.OrderId</p>
+        <p><strong>Tarih:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+        <p><strong>Teslimat Adresi:</strong> @Model.Address</p>
+    </div>
+
+    <hr style="border-color:#e2e8f0;margin:1rem 0;" />
+
+    <h2 class="card-title" style="margin-bottom:1rem;">Sipariş Özeti</h2>
+
+    @foreach (var item in Model.OrderItems)
+    {
+        <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid #f1f5f9;">
+            <span>@item.ProductName <span class="muted">× @item.Quantity</span></span>
+            <strong>@((item.Price * item.Quantity).ToString("C"))</strong>
+        </div>
+    }
+
+    <div style="display:flex;justify-content:space-between;padding:1rem 0;font-size:1.1rem;font-weight:700;">
+        <span>Toplam</span>
+        <span>@total.ToString("C")</span>
+    </div>
+
+    <a asp-controller="Product" asp-action="Index" class="btn btn-primary" style="margin-top:.5rem;">
+        Alışverişe Devam Et
+    </a>
+</section>
