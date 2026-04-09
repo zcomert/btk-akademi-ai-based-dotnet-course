@@ -1,49 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StoreWeb.Infrastructure.Extensions;
 using StoreWeb.Models.Identity;
 using StoreWeb.Repositories;
 using StoreWeb.Services;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
-});
-
-// Ilk IoC container yapilandirmasi
-builder.Services.AddDbContext<RepositoryContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>(options =>
-    {
-        options.Password.RequireDigit = false;
-        options.Password.RequireLowercase = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequiredLength = 6;
-
-        options.User.RequireUniqueEmail = true;
-        options.SignIn.RequireConfirmedEmail = false;
-    })
-    .AddEntityFrameworkStores<RepositoryContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Auth/Login";
-    options.AccessDeniedPath = "/Auth/AccessDenied";
-});
-
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductManager>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.ConfigureSwagger();
+builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureCookie();
+builder.Services.ConfigureIoC();
 
 var app = builder.Build();
 

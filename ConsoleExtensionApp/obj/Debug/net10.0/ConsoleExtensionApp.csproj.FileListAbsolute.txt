@@ -1,0 +1,15 @@
+C:\btk-akademi\ConsoleExtensionApp\bin\Debug\net10.0\ConsoleExtensionApp.exe
+C:\btk-akademi\ConsoleExtensionApp\bin\Debug\net10.0\ConsoleExtensionApp.deps.json
+C:\btk-akademi\ConsoleExtensionApp\bin\Debug\net10.0\ConsoleExtensionApp.runtimeconfig.json
+C:\btk-akademi\ConsoleExtensionApp\bin\Debug\net10.0\ConsoleExtensionApp.dll
+C:\btk-akademi\ConsoleExtensionApp\bin\Debug\net10.0\ConsoleExtensionApp.pdb
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.AssemblyInfoInputs.cache
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.AssemblyInfo.cs
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.csproj.CoreCompileInputs.cache
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.sourcelink.json
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.dll
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\refint\ConsoleExtensionApp.dll
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.pdb
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ConsoleExtensionApp.genruntimeconfig.cache
+C:\btk-akademi\ConsoleExtensionApp\obj\Debug\net10.0\ref\ConsoleExtensionApp.dll
