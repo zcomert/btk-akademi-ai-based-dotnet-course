@@ -1,3 +1,5 @@
+@using StoreWeb.Services
+@inject ICartService CartService
 @{
     var currentArea = ViewContext.RouteData.Values["area"]?.ToString() ?? string.Empty;
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
@@ -15,6 +17,8 @@
     var isAdmin = User.IsInRole(AppRoles.Admin);
     var isEditorOrAdmin = User.IsInRole(AppRoles.Editor) || isAdmin;
     var displayName = User.Identity?.Name ?? "Kullanici";
+    var cartCount = CartService.GetCart(Context.Session).Sum(x => x.Quantity);
+    var isCart = currentController == "Cart";
 }
 <!DOCTYPE html>
 <html lang="tr">
@@ -89,6 +93,10 @@
                     }
                     <a href="/home/greeting/BTK-Akademi" class="nav-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                     <a href="/home/contact" class="nav-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
+                    <a asp-controller="Cart" asp-action="Index"
+                       class="nav-link @(isCart ? "is-active" : string.Empty)">
+                        Sepet@(cartCount > 0 ? $" ({cartCount})" : "")
+                    </a>
                     @if (!isAuthenticated)
                     {
                         <a asp-controller="Auth" asp-action="Login" class="nav-link @(currentController == "Auth" && currentAction == "Login" ? "is-active" : string.Empty)">Login</a>
@@ -118,6 +126,10 @@
                 }
                 <a href="/home/greeting/BTK-Akademi" class="mobile-link @(isGreeting ? "is-active" : string.Empty)">Selamla</a>
                 <a href="/home/contact" class="mobile-link @(isContact ? "is-active" : string.Empty)">Iletisim</a>
+                <a asp-controller="Cart" asp-action="Index"
+                   class="mobile-link @(isCart ? "is-active" : string.Empty)">
+                    Sepet@(cartCount > 0 ? $" ({cartCount})" : "")
+                </a>
                 @if (!isAuthenticated)
                 {
                     <a asp-controller="Auth" asp-action="Login" class="mobile-link @(currentController == "Auth" && currentAction == "Login" ? "is-active" : string.Empty)">Login</a>
