@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StoreWeb</name>
+    </assembly>
+    <members>
+        <member name="T:StoreWeb.Api.ProductsController">
+            <summary>
+            Provides read-only product endpoints for external consumers.
+            </summary>
+        </member>
+        <member name="M:StoreWeb.Api.ProductsController.GetAll">
+            <summary>
+            Returns all products.
+            </summary>
+            <returns>List of products.</returns>
+        </member>
+        <member name="M:StoreWeb.Api.ProductsController.GetById(System.Int32)">
+            <summary>
+            Returns a single product by id.
+            </summary>
+            <param name="id">Product identifier.</param>
+            <returns>The requested product.</returns>
+        </member>
+        <member name="T:StoreWeb.Migrations.InitialPoint">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.InitialPoint.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.InitialPoint.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.InitialPoint.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:StoreWeb.Migrations.ImageURLToProduct">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.ImageURLToProduct.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.ImageURLToProduct.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.ImageURLToProduct.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:StoreWeb.Migrations.AddIdentityAuth">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.AddIdentityAuth.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.AddIdentityAuth.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.AddIdentityAuth.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:StoreWeb.Migrations.AddOrderTables">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.AddOrderTables.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.AddOrderTables.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StoreWeb.Migrations.AddOrderTables.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Program">
+            <summary>
+            Auto-generated public partial Program class for top-level statement apps.
+            </summary>
+        </member>
+    </members>
+</doc>

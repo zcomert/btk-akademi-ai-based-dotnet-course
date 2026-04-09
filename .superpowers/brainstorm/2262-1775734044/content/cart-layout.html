@@ -1,0 +1,87 @@
+<h2>Sepet sayfası nasıl görünsün?</h2>
+<p class="subtitle">Ürünleri listelemek ve siparişi tamamlamak için hangi düzen daha uygun?</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup" style="font-size:12px; padding: 8px;">
+        <div class="mock-nav" style="margin-bottom:8px;">🛒 Sepetim (3 ürün)</div>
+        <div style="display:flex; gap:8px;">
+          <div style="flex:2; background:#f5f5f5; border-radius:6px; padding:8px;">
+            <div style="background:#fff;border-radius:4px;padding:6px;margin-bottom:6px;display:flex;gap:6px;align-items:center;">
+              <div style="width:32px;height:32px;background:#ddd;border-radius:4px;"></div>
+              <div style="flex:1"><div style="font-weight:600;font-size:11px;">Ürün Adı</div><div style="color:#888;font-size:10px;">₺199</div></div>
+              <div style="font-size:11px;">× 1</div>
+            </div>
+            <div style="background:#fff;border-radius:4px;padding:6px;margin-bottom:6px;display:flex;gap:6px;align-items:center;">
+              <div style="width:32px;height:32px;background:#ddd;border-radius:4px;"></div>
+              <div style="flex:1"><div style="font-weight:600;font-size:11px;">Ürün Adı</div><div style="color:#888;font-size:10px;">₺349</div></div>
+              <div style="font-size:11px;">× 2</div>
+            </div>
+          </div>
+          <div style="flex:1; background:#fff; border:1px solid #eee; border-radius:6px; padding:8px;">
+            <div style="font-weight:600;font-size:11px;margin-bottom:6px;">Sipariş Özeti</div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#666;margin-bottom:4px;"><span>Ara Toplam</span><span>₺897</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:8px;"><span>Toplam</span><span>₺897</span></div>
+            <div class="mock-button" style="font-size:10px;padding:6px;text-align:center;">Siparişi Tamamla</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Yan yana düzen</h3>
+      <p>Sol: ürün listesi &nbsp;|&nbsp; Sağ: sipariş özeti + buton. Tek sayfada her şey görünür.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup" style="font-size:12px; padding: 8px;">
+        <div class="mock-nav" style="margin-bottom:8px;">🛒 Sepetim (3 ürün)</div>
+        <div style="background:#f5f5f5; border-radius:6px; padding:8px; margin-bottom:8px;">
+          <div style="background:#fff;border-radius:4px;padding:6px;margin-bottom:6px;display:flex;gap:6px;align-items:center;">
+            <div style="width:32px;height:32px;background:#ddd;border-radius:4px;"></div>
+            <div style="flex:1"><div style="font-weight:600;font-size:11px;">Ürün Adı</div><div style="color:#888;font-size:10px;">₺199</div></div>
+            <div style="font-size:11px;">× 1 &nbsp; 🗑</div>
+          </div>
+          <div style="background:#fff;border-radius:4px;padding:6px;display:flex;gap:6px;align-items:center;">
+            <div style="width:32px;height:32px;background:#ddd;border-radius:4px;"></div>
+            <div style="flex:1"><div style="font-weight:600;font-size:11px;">Ürün Adı</div><div style="color:#888;font-size:10px;">₺349</div></div>
+            <div style="font-size:11px;">× 2 &nbsp; 🗑</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:6px;"><span>Toplam:</span><span>₺897</span></div>
+        <div class="mock-button" style="font-size:10px;padding:6px;text-align:center;">Siparişi Tamamla →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Tek sütun düzen</h3>
+      <p>Ürünler üstte, toplam ve buton altta. Mobil dostu, sade ve odaklı akış.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup" style="font-size:12px; padding: 8px; position:relative;">
+        <div class="mock-nav" style="margin-bottom:8px;">Ürünler &nbsp;|&nbsp; <strong>🛒 (3)</strong></div>
+        <div style="background:#f5f5f5;border-radius:6px;padding:8px;">
+          <div style="font-size:10px;color:#888;margin-bottom:4px;">Ürün kartları burada...</div>
+          <div style="display:flex;gap:4px;">
+            <div style="flex:1;background:#fff;border-radius:4px;padding:6px;font-size:10px;">Ürün 1</div>
+            <div style="flex:1;background:#fff;border-radius:4px;padding:6px;font-size:10px;">Ürün 2</div>
+          </div>
+        </div>
+        <div style="position:absolute;right:12px;top:28px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:8px;width:110px;box-shadow:0 4px 12px rgba(0,0,0,.12);">
+          <div style="font-weight:700;font-size:10px;margin-bottom:4px;">Sepetim</div>
+          <div style="font-size:10px;color:#666;margin-bottom:2px;">• Ürün A — ₺199</div>
+          <div style="font-size:10px;color:#666;margin-bottom:6px;">• Ürün B — ₺349</div>
+          <div class="mock-button" style="font-size:9px;padding:4px;text-align:center;">Tamamla</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Açılır panel (dropdown)</h3>
+      <p>Nav'daki 🛒 ikonuna tıklayınca sepet paneli açılır. Ayrı sayfa yok, hızlı erişim.</p>
+    </div>
+  </div>
+</div>
