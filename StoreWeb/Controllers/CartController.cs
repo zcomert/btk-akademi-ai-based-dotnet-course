@@ -25,7 +25,7 @@ public class CartController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddToCart(int productId)
     {
-        var product = await _productService.GetByIdAsync(productId);
+        var product = await _productService.GetByIdAsync(productId, asNoTracking: true);
         if (product is null)
             return NotFound();
 
